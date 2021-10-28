@@ -12,11 +12,9 @@ class MyApp extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(
-              child: Carousel1(),
-              height: 250,
-            ),
-            Container(child: Carousel2(), height: 250)
+            Container(child: Carousel1(), height: 200),
+            Container(child: Carousel2(), height: 200),
+            Container(child: Carousel3(), height: 200)
           ],
           /* child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -61,7 +59,8 @@ class Carousel1 extends StatelessWidget {
         backgroundColor: Colors.purple[100],
         body: Center(
           child: CarouselSlider.builder(
-            options: CarouselOptions(height: 200),
+            options: CarouselOptions(
+                height: 200, enlargeStrategy: CenterPageEnlargeStrategy.height),
             itemCount: urlImages1.length,
             itemBuilder: (context, index, realIndex) {
               final urlImage1 = urlImages1[index];
@@ -72,7 +71,7 @@ class Carousel1 extends StatelessWidget {
         ),
       );
   Widget buildImage(String urlImage1, int index) => Container(
-        margin: EdgeInsets.symmetric(horizontal: 12),
+        margin: EdgeInsets.symmetric(horizontal: 8),
         color: Colors.pink[200],
         child: Image.network(
           urlImage1,
@@ -92,7 +91,8 @@ class Carousel2 extends StatelessWidget {
         backgroundColor: Colors.purple[100],
         body: Center(
           child: CarouselSlider.builder(
-            options: CarouselOptions(height: 200),
+            options: CarouselOptions(
+                height: 200, enlargeStrategy: CenterPageEnlargeStrategy.height),
             itemCount: urlImages2.length,
             itemBuilder: (context, index, realIndex) {
               final urlImage2 = urlImages2[index];
@@ -103,10 +103,42 @@ class Carousel2 extends StatelessWidget {
         ),
       );
   Widget buildImage(String urlImage2, int index) => Container(
-        margin: EdgeInsets.symmetric(horizontal: 12),
+        margin: EdgeInsets.symmetric(horizontal: 8),
         color: Colors.pink[200],
         child: Image.network(
           urlImage2,
+          fit: BoxFit.cover,
+        ),
+      );
+}
+
+class Carousel3 extends StatelessWidget {
+  final urlImages3 = [
+    'https://cdna.lystit.com/photos/towerlondon/b2b9117a/dr-martens-Black-Dr-Martens-Molly-Rainbow-Patent-Womens-Black-Boots.jpeg',
+    'https://i.ebayimg.com/images/g/lsUAAOSwEjlbRB9X/s-l300.jpg',
+    'https://www-s.mlo.me/upen/v/tb2016/tb201608/tb20160831/8da2bb42-8cf1-43af-a163-d74ad4adb969.jpg'
+  ];
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: Colors.purple[100],
+        body: Center(
+          child: CarouselSlider.builder(
+            options: CarouselOptions(
+                height: 200, enlargeStrategy: CenterPageEnlargeStrategy.height),
+            itemCount: urlImages3.length,
+            itemBuilder: (context, index, realIndex) {
+              final urlImage3 = urlImages3[index];
+
+              return buildImage(urlImage3, index);
+            },
+          ),
+        ),
+      );
+  Widget buildImage(String urlImage3, int index) => Container(
+        margin: EdgeInsets.symmetric(horizontal: 8),
+        color: Colors.pink[200],
+        child: Image.network(
+          urlImage3,
           fit: BoxFit.cover,
         ),
       );
