@@ -33,6 +33,9 @@ class MyApp extends StatelessWidget {
   //hello
   @override
   Widget build(BuildContext context) {
+
+    int _currentIndex = 1; // default selected navbar item is "wardrobe"
+
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.purple[100],
@@ -43,32 +46,41 @@ class MyApp extends StatelessWidget {
             Container(child: PantCarousel(), height: 200),
             Container(child: ShoeCarousel(), height: 200)
           ],
-          /* child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Card(
-                child: Image.asset(
-                  'assets/tshirt.jpg',
-                  height: 150,
-                ),
-              ),
-              Card(
-                child: Image.asset(
-                  'assets/pants.jpg',
-                  height: 150,
-                ),
-              ),
-              Card(
-                child: Image.asset(
-                  'assets/shoes.jpg',
-                  height: 150,
-                ),
-              )
-            ],
-          ), */
-        ),
+        ), 
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Color(0xFF6200EE),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white.withOpacity(.60),
+        currentIndex: _currentIndex,
+        selectedFontSize: 14,
+        unselectedFontSize: 14,
+        onTap: (value) {
+          // Respond to item press.
+        },
+        items: const [
+          BottomNavigationBarItem(
+            title: Text('Home'),
+            icon: Icon(Icons.home),
+          ),
+          BottomNavigationBarItem(
+            title: Text('Wardrobe'),
+            icon: Icon(Icons.checkroom),
+          ),
+          BottomNavigationBarItem(
+            title: Text('Add'),
+            icon: Icon(Icons.add),
+          ),
+          BottomNavigationBarItem(
+            title: Text('Calendar'),
+            icon: Icon(Icons.date_range),
+          ),
+          BottomNavigationBarItem(
+            title: Text('Weather'),
+            icon: Icon(Icons.cloud),
+          ),
+        ],
+      ),
       ),
     );
   }
