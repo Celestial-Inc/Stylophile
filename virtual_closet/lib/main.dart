@@ -4,7 +4,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  //hello
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
