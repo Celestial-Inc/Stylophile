@@ -28,13 +28,27 @@ Widget buildCarousel(BuildContext context, imageList) => Scaffold(
       ),
     );
 
-
 class MyApp extends StatelessWidget {
-  //hello
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Stylophile',
+      home: MyHomePage(),
+    );
+  }
+}
 
-    int _currentIndex = 1; // default selected navbar item is "wardrobe"
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+
+  int _currentIndex = 0; // default selected navbar item is "Home"
+
+  @override
+  Widget build(BuildContext context) {
 
     return MaterialApp(
       home: Scaffold(
@@ -57,6 +71,7 @@ class MyApp extends StatelessWidget {
         unselectedFontSize: 14,
         onTap: (value) {
           // Respond to item press.
+          setState(() => _currentIndex = value);
         },
         items: const [
           BottomNavigationBarItem(
