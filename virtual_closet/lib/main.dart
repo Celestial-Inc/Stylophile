@@ -4,8 +4,12 @@ import 'package:virtual_closet/home_page.dart';
 import 'package:virtual_closet/add_clothes_page.dart';
 import 'package:virtual_closet/calendar_page.dart';
 import 'package:virtual_closet/wardrobe_page.dart';
+import 'package:intl/date_symbol_data_local.dart'; 
 
-main() => runApp(MyApp());
+
+void main() {
+  initializeDateFormatting().then((_) => runApp(MyApp()));
+}
 
 class MyApp extends StatelessWidget {
   @override
