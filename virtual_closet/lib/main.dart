@@ -49,9 +49,9 @@ class MyApp extends StatelessWidget {
 
 class Carousel1 extends StatelessWidget {
   final urlImages1 = [
-    'https://dddlzd5g3wzri.cloudfront.net/media/cache/a2/38/images/products/2018/12/Anina-Crop-Top-Kurzarm-black-1_a238569b85865d16aaae149a0d3edbb7.jpg',
-    'https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2F1b%2Fc9%2F1bc925c6b468db60dc7ead77537e53ef5f3b8c77.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5Bladies_hoodiesswetshirts_hoodies%5D%2Ctype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B2%5D&call=url[file:/product/main]',
-    'https://m.media-amazon.com/images/I/61aueZalO+L._AC_UL320_.jpg'
+    'assets/images/shirt01.jpg',
+    'assets/images/shirt02.jpg',
+    'assets/images/shirt03.jpg'
   ];
 
   @override
@@ -73,7 +73,7 @@ class Carousel1 extends StatelessWidget {
   Widget buildImage(String urlImage1, int index) => Container(
         margin: EdgeInsets.symmetric(horizontal: 8),
         color: Colors.pink[200],
-        child: Image.network(
+        child: Image.asset(
           urlImage1,
           fit: BoxFit.cover,
         ),
@@ -82,9 +82,9 @@ class Carousel1 extends StatelessWidget {
 
 class Carousel2 extends StatelessWidget {
   final urlImages2 = [
-    'https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2F51%2Fd7%2F51d76619edcaa25f5179b0e2119e5a85b6b397de.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5Bladies_trousers_flare%5D%2Ctype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B1%5D&call=url[file:/product/main]',
-    'https://agnesb-agnesb-com-storage.omn.proximis.com/Imagestorage/imagesSynchro/0/0/cc48a463b58fc982d72d65925a294ae1b4472ea3_O689U700_001_1.jpeg',
-    'https://cms.brnstc.de/product_images/435x596/20/06/100102726017000_0.jpg'
+    'assets/images/pants01.jpg',
+    'assets/images/pants02.jpeg',
+    'assets/images/pants03.jpg'
   ];
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -105,7 +105,7 @@ class Carousel2 extends StatelessWidget {
   Widget buildImage(String urlImage2, int index) => Container(
         margin: EdgeInsets.symmetric(horizontal: 8),
         color: Colors.pink[200],
-        child: Image.network(
+        child: Image.asset(
           urlImage2,
           fit: BoxFit.cover,
         ),
@@ -114,9 +114,9 @@ class Carousel2 extends StatelessWidget {
 
 class Carousel3 extends StatelessWidget {
   final urlImages3 = [
-    'https://cdna.lystit.com/photos/towerlondon/b2b9117a/dr-martens-Black-Dr-Martens-Molly-Rainbow-Patent-Womens-Black-Boots.jpeg',
-    'https://i.ebayimg.com/images/g/lsUAAOSwEjlbRB9X/s-l300.jpg',
-    'https://www-s.mlo.me/upen/v/tb2016/tb201608/tb20160831/8da2bb42-8cf1-43af-a163-d74ad4adb969.jpg'
+    'assets/images/shoes01.jpg',
+    'assets/images/shoes02.png',
+    'assets/images/shoes03.jpg'
   ];
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -137,7 +137,7 @@ class Carousel3 extends StatelessWidget {
   Widget buildImage(String urlImage3, int index) => Container(
         margin: EdgeInsets.symmetric(horizontal: 8),
         color: Colors.pink[200],
-        child: Image.network(
+        child: Image.asset(
           urlImage3,
           fit: BoxFit.cover,
         ),
