@@ -4,8 +4,7 @@ import 'package:virtual_closet/home_page.dart';
 import 'package:virtual_closet/add_clothes_page.dart';
 import 'package:virtual_closet/calendar_page.dart';
 import 'package:virtual_closet/wardrobe_page.dart';
-import 'package:intl/date_symbol_data_local.dart'; 
-
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   initializeDateFormatting().then((_) => runApp(MyApp()));
@@ -27,20 +26,23 @@ class PageFrame extends StatefulWidget {
 }
 
 class _PageFrameState extends State<PageFrame> {
-
   int _currentIndex = 0; // default selected navbar item is "Home"
-  List _screens=[HomePage(), WardrobePage(), AddClothesPage(), CalendarPage(), WeatherPage()];
+  List _screens = [
+    HomePage(),
+    WardrobePage(),
+    AddClothesPage(),
+    CalendarPage(),
+    WeatherPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       home: Scaffold(
         body: _screens[_currentIndex],
-
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Color(0xFF6200EE),
+          backgroundColor: Color(0xFFDC67F7),
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white.withOpacity(.60),
           currentIndex: _currentIndex,
