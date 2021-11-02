@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:virtual_closet/weather_page.dart';
 import 'package:virtual_closet/home_page.dart';
@@ -7,9 +8,11 @@ import 'package:virtual_closet/wardrobe_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:path_provider/path_provider.dart';
 
-
-void main() {
+Future<void> main() async {
   initializeDateFormatting().then((_) => runApp(MyApp()));
+  await Directory('images/tops').create(recursive: true);
+  await Directory('images/bottoms').create(recursive: true);
+  await Directory('images/shoes').create(recursive: true);
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +21,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Stylophile',
       home: PageFrame(),
-      
     );
   }
 }
