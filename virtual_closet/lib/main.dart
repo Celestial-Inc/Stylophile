@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_closet/weather_page.dart';
-import 'package:virtual_closet/home_page.dart';
-import 'package:virtual_closet/add_clothes_page.dart';
-import 'package:virtual_closet/calendar_page.dart';
-import 'package:virtual_closet/wardrobe_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:virtual_closet/utils.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:hive/hive.dart';
+import 'dart:convert';
 
-
-void main() {
-  initializeDateFormatting().then((_) => runApp(MyApp()));
+Future<void> main() async {
+  initializeHive().then((_) => initializeDateFormatting().then((_) => runApp(MyApp())));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,68 +14,82 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Stylophile',
-      home: PageFrame(),
-      
+      home: WardrobePage(),
     );
   }
 }
 
-class PageFrame extends StatefulWidget {
+class WardrobePage extends StatefulWidget {
   @override
-  _PageFrameState createState() => _PageFrameState();
+  _WardrobePageState createState() => _WardrobePageState();
 }
 
-class _PageFrameState extends State<PageFrame> {
-  int _currentIndex = 0; // default selected navbar item is "Home"
-  List _screens = [
-    HomePage(),
-    WardrobePage(),
-    AddClothesPage(),
-    CalendarPage(),
-    WeatherPage()
-  ];
+class _WardrobePageState extends State<WardrobePage> {
+  bool _imageAreLoaded = false;
+
+  void loadHiveImages() async {
+    if (shirtsBox.isEmpty) {
+      shirtsBox.put('shirt1', await convertImageToString('assets/images/shirt01.jpg'));
+      shirtsBox.put('shirt2', await convertImageToString('assets/images/shirt02.jpg'));
+      shirtsBox.put('shirt3', await convertImageToString('assets/images/shirt03.jpg'));
+    }
+
+    setState(() {
+      _imageAreLoaded = true;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadHiveImages();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: _screens[_currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Color(0xFFDC67F7),
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white.withOpacity(.60),
-          currentIndex: _currentIndex,
-          selectedFontSize: 14,
-          unselectedFontSize: 14,
-          onTap: (value) {
-            // Respond to item press.
-            setState(() => _currentIndex = value);
-          },
-          items: const [
-            BottomNavigationBarItem(
-              title: Text('Home'),
-              icon: Icon(Icons.home),
-            ),
-            BottomNavigationBarItem(
-              title: Text('Wardrobe'),
-              icon: Icon(Icons.checkroom),
-            ),
-            BottomNavigationBarItem(
-              title: Text('Add'),
-              icon: Icon(Icons.add),
-            ),
-            BottomNavigationBarItem(
-              title: Text('Calendar'),
-              icon: Icon(Icons.date_range),
-            ),
-            BottomNavigationBarItem(
-              title: Text('Weather'),
-              icon: Icon(Icons.cloud),
-            ),
+    if (_imageAreLoaded) {
+      return Scaffold(
+        backgroundColor: Colors.purple[100],
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(child: ShirtCarousel(), height: 200),
           ],
         ),
-      ),
-    );
+      );
+    } else {
+      return Scaffold(body: Center(child: Text('Loading...')));
+    }
   }
+}
+
+class ShirtCarousel extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => buildCarousel(context, shirtsBox);
+}
+
+Widget buildImageFromAsset(Box hiveBox, int index) {
+  String imageAsString = hiveBox.getAt(index);
+  var container = Container(
+    margin: EdgeInsets.symmetric(horizontal: 8),
+    color: Colors.pink[200],
+    child: Image.memory(base64Decode(imageAsString), fit: BoxFit.cover),
+  );
+  return container;
+}
+
+Widget buildCarousel(BuildContext context, hiveBox) {
+  var itemCount = hiveBox.length;
+  return Scaffold(
+    backgroundColor: Colors.purple[100],
+    body: Center(
+      child: CarouselSlider.builder(
+        options: CarouselOptions(height: 200, enlargeStrategy: CenterPageEnlargeStrategy.height),
+        itemCount: itemCount,
+        itemBuilder: (context, index, realIndex) {
+          return buildImageFromAsset(hiveBox, index);
+        },
+      ),
+    ),
+  );
 }
