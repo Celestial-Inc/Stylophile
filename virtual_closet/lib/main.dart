@@ -10,9 +10,6 @@ import 'package:path_provider/path_provider.dart';
 
 Future<void> main() async {
   initializeDateFormatting().then((_) => runApp(MyApp()));
-  await Directory('images/tops').create(recursive: true);
-  await Directory('images/bottoms').create(recursive: true);
-  await Directory('images/shoes').create(recursive: true);
 }
 
 class MyApp extends StatelessWidget {
