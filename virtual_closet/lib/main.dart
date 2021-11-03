@@ -28,6 +28,7 @@ class _WardrobePageState extends State<WardrobePage> {
   bool _imageAreLoaded = false;
 
   void loadHiveImages() async {
+    Box shirtsBox = Hive.box('shirts');
     if (shirtsBox.isEmpty) {
       shirtsBox.put('shirt1', await convertImageToString('assets/images/shirt01.jpg'));
       shirtsBox.put('shirt2', await convertImageToString('assets/images/shirt02.jpg'));
@@ -47,25 +48,28 @@ class _WardrobePageState extends State<WardrobePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_imageAreLoaded) {
-      return Scaffold(
-        backgroundColor: Colors.purple[100],
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(child: ShirtCarousel(), height: 200),
-          ],
-        ),
-      );
-    } else {
+    if (_imageAreLoaded == false) {
       return Scaffold(body: Center(child: Text('Loading...')));
     }
+
+    return Scaffold(
+      backgroundColor: Colors.purple[100],
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(child: ShirtCarousel(), height: 200),
+        ],
+      ),
+    );
   }
 }
 
 class ShirtCarousel extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => buildCarousel(context, shirtsBox);
+  Widget build(BuildContext context) {
+    Box shirtsBox = Hive.box('shirts');
+    return buildCarousel(context, shirtsBox);
+  }
 }
 
 Widget buildImageFromAsset(Box hiveBox, int index) {
