@@ -35,13 +35,7 @@ class PageFrame extends StatefulWidget {
 
 class _PageFrameState extends State<PageFrame> {
   int _currentIndex = 0; // default selected navbar item is "Home"
-  final List _screens = [
-    HomePage(),
-    WardrobePage(),
-    AddClothesPage(),
-    CalendarPage(),
-    WeatherPage()
-  ];
+  final List _screens = [HomePage(), WardrobePage(), AddClothesPage(), CalendarPage(), WeatherPage()];
 
   @override
   Widget build(BuildContext context) {
