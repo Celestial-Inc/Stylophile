@@ -41,6 +41,8 @@ dependencies:
   location: ^4.3.0
   http: ^0.13.4
   font_awesome_flutter: ^9.2.0
+  image_picker: ^0.8.4+4
+  image_cropper: ^1.4.1
 
 dev_dependencies:
   flutter_test:
