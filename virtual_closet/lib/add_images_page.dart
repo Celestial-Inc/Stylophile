@@ -6,19 +6,19 @@ import 'package:virtual_closet/img_utils.dart';
 import 'package:virtual_closet/floating_button.dart';
 import 'img_list_widget.dart';
 
-class AddClothesPage extends StatefulWidget {
+class AddImagesPage extends StatefulWidget {
   final bool isGallery;
 
-  const AddClothesPage({
+  const AddImagesPage({
     required Key key,
     required this.isGallery,
   }) : super(key: key);
 
   @override
-  _AddClothesPageState createState() => _AddClothesPageState();
+  _AddImagesPageState createState() => _AddImagesPageState();
 }
 
-class _AddClothesPageState extends State<AddClothesPage> {
+class _AddImagesPageState extends State<AddImagesPage> {
   List<File> imageFiles = [];
 
   @override
@@ -38,8 +38,7 @@ class _AddClothesPageState extends State<AddClothesPage> {
     imageFiles.add(file);
   }
 
-  Future<File?> cropSquareImage(File imageFile) async =>
-      await ImageCropper.cropImage(
+  Future<File?> cropSquareImage(File imageFile) async => await ImageCropper.cropImage(
         sourcePath: imageFile.path,
         aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
         aspectRatioPresets: [CropAspectRatioPreset.square],

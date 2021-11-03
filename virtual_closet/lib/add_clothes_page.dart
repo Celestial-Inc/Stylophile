@@ -3,13 +3,12 @@ import 'package:flutter/services.dart';
 import 'main.dart';
 import 'add_images_page.dart';
 
-class HomePage extends StatefulWidget {
+class AddClothesPage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<AddClothesPage> with SingleTickerProviderStateMixin {
   late TabController controller;
   bool isGallery = true;
   int index = 2;
@@ -55,6 +54,4 @@ class _HomePageState extends State<HomePage>
           ],
         ),
       );
-
-  }
 }
