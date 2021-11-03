@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Utils {
-  static Future<File> pickMedia({
-    @required bool isGallery,
-    Future<File> Function(File file) cropImage,
+  static Future<File?> pickMedia({
+    required bool isGallery,
+    required Future<File> Function(File file) cropImage,
   }) async {
     final source = isGallery ? ImageSource.gallery : ImageSource.camera;
     final pickedFile = await ImagePicker().getImage(source: source);

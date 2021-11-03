@@ -1,15 +1,21 @@
-import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:virtual_closet/weather_page.dart';
 import 'package:virtual_closet/home_page.dart';
 import 'package:virtual_closet/add_clothes_page.dart';
 import 'package:virtual_closet/calendar_page.dart';
 import 'package:virtual_closet/wardrobe_page.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:path_provider/path_provider.dart';
 
-Future<void> main() async {
-  initializeDateFormatting().then((_) => runApp(MyApp()));
+import 'add_images_page.dart';
+
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -29,7 +35,7 @@ class PageFrame extends StatefulWidget {
 
 class _PageFrameState extends State<PageFrame> {
   int _currentIndex = 0; // default selected navbar item is "Home"
-  List _screens = [
+  final List _screens = [
     HomePage(),
     WardrobePage(),
     AddClothesPage(),

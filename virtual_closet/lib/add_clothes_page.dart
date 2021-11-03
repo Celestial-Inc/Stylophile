@@ -1,46 +1,60 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:virtual_closet/img_utils.dart';
-import 'package:image_cropper_example/widget/floating_button.dart';
-import 'img_list_widget.dart';
+import 'package:flutter/services.dart';
+import 'main.dart';
+import 'add_images_page.dart';
 
-class AddClothesPage extends StatefulWidget {
-  final bool isGallery;
-
-  const AddClothesPage({
-    Key key,
-    @required this.isGallery,
-  }) : super(key: key);
-
-  @override 
-  _AddClothesPageState createState => _AddClothesPageState();
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
 }
 
-class _AddClothesPageState extends State<AddClothesPage> {
-  List<File> imageFiles = [];
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late TabController controller;
+  bool isGallery = true;
+  int index = 2;
+  final PageStorageBucket bucket = PageStorageBucket();
 
-  @override 
+  @override
+  void initState() {
+    super.initState();
+    controller = TabController(length: 1, vsync: this);
+  }
+
+  @override
   Widget build(BuildContext context) => Scaffold(
-    body: ImageListWidget(imageFiles: imageFiles),
-    floatingActionButton:  FloatingButtonWidget(OnClicked: onClickedButton()),
-    floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-  );
-
-Future onClickedButton() async {
-  final file = await Utils.pickMedia(
-    isGallery: widget.isGallery,
-    cropImage: cropSquareImage,
-  );
-
-  if (file == null) return;
-  imageFiles.add(file);
-}
-  Future<File> cropSquareImage(File imageFile) async =>
-    await ImageCropper.cropImage(
-      sourcePath: ImageFile.path,
-      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-      aspectRatioPresets: [CropAspectRatioPreset.square],
+        body: Column(
+          children: [
+            Container(
+              color: Theme.of(context).primaryColor,
+              child: TabBar(
+                controller: controller,
+                indicatorWeight: 3,
+                labelStyle: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                tabs: [
+                  Tab(text: 'Images'),
+                ],
+              ),
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: controller,
+                children: [
+                  IndexedStack(
+                    index: index,
+                    children: [
+                      AddClothesPage(),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       );
+
+  }
 }
