@@ -1,4 +1,5 @@
-import 'package:flutter/services.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:virtual_closet/utils.dart';
 import 'package:virtual_closet/weather_page.dart';
@@ -6,18 +7,19 @@ import 'package:virtual_closet/home_page.dart';
 import 'package:virtual_closet/add_clothes_page.dart';
 import 'package:virtual_closet/calendar_page.dart';
 import 'package:virtual_closet/wardrobe_page.dart';
-import 'add_images_page.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
-  initializeHive().then((_) => initializeDateFormatting().then((_) => runApp(MyApp())));
+  initializeHive().then(
+      (_) => initializeDateFormatting().then((_) => runApp(const MyApp())));
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Stylophile',
       home: PageFrame(),
     );
@@ -25,13 +27,21 @@ class MyApp extends StatelessWidget {
 }
 
 class PageFrame extends StatefulWidget {
+  const PageFrame({Key? key}) : super(key: key);
+
   @override
   _PageFrameState createState() => _PageFrameState();
 }
 
 class _PageFrameState extends State<PageFrame> {
   int _currentIndex = 0; // default selected navbar item is "Home"
-  final List _screens = [HomePage(), WardrobePage(), AddClothesPage(), CalendarPage(), WeatherPage()];
+  final List _screens = [
+    const HomePage(),
+    const WardrobePage(),
+    const AddClothesPage(),
+    const CalendarPage(),
+    const WeatherPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +50,7 @@ class _PageFrameState extends State<PageFrame> {
         body: _screens[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Color(0xFFDC67F7),
+          backgroundColor: const Color(0xFFDC67F7),
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white.withOpacity(.60),
           currentIndex: _currentIndex,

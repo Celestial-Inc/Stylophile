@@ -7,7 +7,8 @@ class AddClothesPage extends StatefulWidget {
   _AddClothesPageState createState() => _AddClothesPageState();
 }
 
-class _AddClothesPageState extends State<AddClothesPage> with SingleTickerProviderStateMixin {
+class _AddClothesPageState extends State<AddClothesPage>
+    with SingleTickerProviderStateMixin {
   late TabController controller;
   bool isGallery = true;
   int index = 2;

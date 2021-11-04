@@ -12,9 +12,11 @@ class FloatingButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) => FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
+          // ignore: deprecated_member_use
           side: BorderSide(width: 2, color: Theme.of(context).accentColor),
           borderRadius: BorderRadius.circular(16),
         ),
+        // ignore: deprecated_member_use
         child: Icon(Icons.add, color: Theme.of(context).accentColor),
         onPressed: onClicked,
       );

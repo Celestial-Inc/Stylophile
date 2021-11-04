@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:virtual_closet/location.dart';
 import 'package:virtual_closet/constants.dart';
-import 'package:virtual_closet/main.dart';
 
 class WeatherDisplayData {
   Icon? weatherIcon;
@@ -14,7 +13,6 @@ class WeatherDisplayData {
 }
 
 class WeatherData {
-  
   WeatherData({required this.locationData});
 
   LocationHelper locationData;
@@ -29,8 +27,8 @@ class WeatherData {
     double longitude = locationData.longitude ?? 0.0;
     double latitude = locationData.latitude ?? 0.0;
 
-    Response response = await get(
-        Uri.parse('http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric'));
+    Response response = await get(Uri.parse(
+        'http://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric'));
 
     if (response.statusCode == 200) {
       String data = response.body;
@@ -42,9 +40,11 @@ class WeatherData {
         currentConditionText = currentWeather['weather'][0]['main'];
         currentLocationText = currentWeather['name'];
       } catch (e) {
+        // ignore: avoid_print
         print(e);
       }
     } else {
+      // ignore: avoid_print
       print('Could not fetch temperature!');
     }
   }
@@ -53,20 +53,20 @@ class WeatherData {
     if (currentCondition < 600) {
       return WeatherDisplayData(
         weatherIcon: kCloudIcon,
-        weatherImage: AssetImage('assets/images/cloud.png'),
+        weatherImage: const AssetImage('assets/images/cloud.png'),
       );
     } else {
-      var now = new DateTime.now();
+      var now = DateTime.now();
 
       if (now.hour >= 15) {
         return WeatherDisplayData(
-          weatherImage: AssetImage('assets/images/night.png'),
+          weatherImage: const AssetImage('assets/images/night.png'),
           weatherIcon: kMoonIcon,
         );
       } else {
         return WeatherDisplayData(
           weatherIcon: kSunIcon,
-          weatherImage: AssetImage('assets/images/sunny.png'),
+          weatherImage: const AssetImage('assets/images/sunny.png'),
         );
       }
     }

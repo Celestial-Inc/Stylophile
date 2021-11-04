@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_closet/weather.dart';
-import 'package:virtual_closet/constants.dart';
-
 
 class MainScreen extends StatefulWidget {
-  MainScreen({required this.weatherData});
+  const MainScreen({Key? key, required this.weatherData}) : super(key: key);
 
   final WeatherData weatherData;
 
@@ -33,6 +31,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
 
@@ -43,7 +42,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        constraints: BoxConstraints.expand(),
+        constraints: const BoxConstraints.expand(),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: backgroundImage,
@@ -53,19 +52,19 @@ class _MainScreenState extends State<MainScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 85,
             ),
             Container(
               child: weatherDisplayIcon,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15.0,
             ),
             Center(
               child: Text(
                 ' $temperature°',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 80.0,
                   letterSpacing: -5,
@@ -75,7 +74,7 @@ class _MainScreenState extends State<MainScreen> {
             Center(
               child: Text(
                 currentConditionText,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 40.0,
                   letterSpacing: 0,
@@ -85,7 +84,7 @@ class _MainScreenState extends State<MainScreen> {
             Center(
               child: Text(
                 currentLocationText,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
                   letterSpacing: 0,

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:virtual_closet/constants.dart';
@@ -6,13 +8,15 @@ import 'package:virtual_closet/location.dart';
 import 'package:virtual_closet/weather.dart';
 
 class LoadingScreen extends StatefulWidget {
+  const LoadingScreen({Key? key}) : super(key: key);
+
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
   late LocationHelper locationData;
-  WeatherData? currentWeather; 
+  WeatherData? currentWeather;
 
   Future<void> getLocationData() async {
     locationData = LocationHelper();
@@ -50,12 +54,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     if (currentWeather == null) {
-      return new Scaffold(
+      return Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: kLinearGradient,
           ),
-          child: Center(
+          child: const Center(
             child: SpinKitRipple(
               color: Colors.white,
               size: 150.0,
@@ -65,12 +69,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
         ),
       );
     } else {
-      return new Scaffold(
+      return Scaffold(
         body: MainScreen(
           weatherData: currentWeather!,
         ),
       );
-
     }
   }
 }
