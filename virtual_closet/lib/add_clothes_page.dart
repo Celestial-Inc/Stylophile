@@ -4,10 +4,10 @@ class AddClothesPage extends StatefulWidget {
   const AddClothesPage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _AddClothesPageState createState() => _AddClothesPageState();
 }
 
-class _HomePageState extends State<AddClothesPage> with SingleTickerProviderStateMixin {
+class _AddClothesPageState extends State<AddClothesPage> with SingleTickerProviderStateMixin {
   late TabController controller;
   bool isGallery = true;
   int index = 2;
@@ -43,7 +43,7 @@ class _HomePageState extends State<AddClothesPage> with SingleTickerProviderStat
                 children: [
                   IndexedStack(
                     index: index,
-                    children: [
+                    children: const [
                       AddClothesPage(),
                     ],
                   ),

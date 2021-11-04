@@ -1,21 +1,17 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:virtual_closet/utils.dart';
 import 'package:virtual_closet/weather_page.dart';
 import 'package:virtual_closet/home_page.dart';
 import 'package:virtual_closet/add_clothes_page.dart';
 import 'package:virtual_closet/calendar_page.dart';
 import 'package:virtual_closet/wardrobe_page.dart';
-
 import 'add_images_page.dart';
+import 'package:hive/hive.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-
-  runApp(MyApp());
+Future<void> main() async {
+  initializeHive().then((_) => initializeDateFormatting().then((_) => runApp(MyApp())));
 }
 
 class MyApp extends StatelessWidget {
