@@ -4,7 +4,7 @@ class FloatingButtonWidget extends StatelessWidget {
   final VoidCallback onClicked;
 
   const FloatingButtonWidget({
-    required Key key,
+    required Key? key,
     required this.onClicked,
   }) : super(key: key);
 

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'main.dart';
-import 'add_images_page.dart';
 
 class AddClothesPage extends StatefulWidget {
+  const AddClothesPage({Key? key}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -29,11 +28,11 @@ class _HomePageState extends State<AddClothesPage> with SingleTickerProviderStat
               child: TabBar(
                 controller: controller,
                 indicatorWeight: 3,
-                labelStyle: TextStyle(
+                labelStyle: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
-                tabs: [
+                tabs: const [
                   Tab(text: 'Images'),
                 ],
               ),

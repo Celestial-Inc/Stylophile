@@ -23,8 +23,14 @@ class _AddImagesPageState extends State<AddImagesPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: ImageListWidget(imageFiles: imageFiles),
-        floatingActionButton: FloatingButtonWidget(onClicked: onClickedButton),
+        body: ImageListWidget(
+          imageFiles: imageFiles,
+          key: null,
+        ),
+        floatingActionButton: FloatingButtonWidget(
+          onClicked: onClickedButton,
+          key: null,
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       );
 
@@ -38,15 +44,17 @@ class _AddImagesPageState extends State<AddImagesPage> {
     imageFiles.add(file);
   }
 
-  Future<File?> cropSquareImage(File imageFile) async => await ImageCropper.cropImage(
-        sourcePath: imageFile.path,
-        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-        aspectRatioPresets: [CropAspectRatioPreset.square],
-        compressQuality: 70,
-        compressFormat: ImageCompressFormat.jpg,
-      );
-  // ignore: prefer_const_constructors
-  AndroidUiSettings androidUiSettingsLocked() => AndroidUiSettings(
+  Future<File> cropSquareImage(File imageFile) async {
+    await ImageCropper.cropImage(
+      sourcePath: imageFile.path,
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+      aspectRatioPresets: [CropAspectRatioPreset.square],
+      compressQuality: 70,
+      compressFormat: ImageCompressFormat.jpg,
+    );
+  }
+
+  AndroidUiSettings androidUiSettingsLocked() => const AndroidUiSettings(
         toolbarTitle: 'Crop',
         toolbarColor: Colors.red,
         toolbarWidgetColor: Colors.white,
