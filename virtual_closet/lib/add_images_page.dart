@@ -37,11 +37,6 @@ class AddImagesPage extends StatefulWidget {
     });
   }
 
-  void initState() {
-    super.initState();
-    pickImage();
-  }
-
   Widget build(BuildContext context) {
     if (isImageSelected == false) {
       return const Scaffold(body: Center(child: Text('Loading...')));
@@ -105,6 +100,7 @@ class _AddImagesPageState extends State<AddImagesPage> {
       aspectRatioPresets: [CropAspectRatioPreset.square],
       compressQuality: 70,
       compressFormat: ImageCompressFormat.jpg,
+      
     );
   }
 
