@@ -90,7 +90,7 @@ class _AddImagesPageState extends State<AddImagesPage> {
     );
 
     if (file == null) return;
-    imageFiles.add(file);
+    setState(() => imageFiles.add(file));
   }
 
   Future<File> cropSquareImage(File imageFile) async {
@@ -100,7 +100,7 @@ class _AddImagesPageState extends State<AddImagesPage> {
       aspectRatioPresets: [CropAspectRatioPreset.square],
       compressQuality: 70,
       compressFormat: ImageCompressFormat.jpg,
-      
+      androidUiSettings: androidUiSettingsLocked(),
     );
   }
 
