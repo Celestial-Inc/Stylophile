@@ -16,9 +16,7 @@ class AddImagesPage extends StatefulWidget {
   late String? base64Image;
   final String? clothingType;
 
-  AddImagesPage(
-      {Key? key, required this.isGallery, this.base64Image, this.clothingType})
-      : super(key: key);
+  AddImagesPage({Key? key, required this.isGallery, this.base64Image, this.clothingType}) : super(key: key);
 
   void pickImage() async {
     final ImagePicker _picker = ImagePicker();
@@ -30,8 +28,7 @@ class AddImagesPage extends StatefulWidget {
     });
 
     Box shirtsBox = Hive.box('shirts');
-    shirtsBox.put(
-        'myNewShirt', base64Image); //todo: generate a random image name
+    shirtsBox.put('myNewShirt', base64Image); //todo: generate a random image name
     setState(() {
       isClothingTypeSelected = true;
     });
@@ -44,13 +41,11 @@ class AddImagesPage extends StatefulWidget {
 
     if (isClothingTypeSelected == false) {
       // todo: ask the user if they want to save a shirt, bottom, or shoe
-      return const Scaffold(
-          body: Center(child: Text('Select what type of clothing...')));
+      return const Scaffold(body: Center(child: Text('Select what type of clothing...')));
     }
 
     // todo: show the user their image and a nice message
-    return const Scaffold(
-        body: Center(child: Text('Thank you, you added x... ')));
+    return const Scaffold(body: Center(child: Text('Thank you, you added x... ')));
   }
 
   @override
@@ -93,8 +88,8 @@ class _AddImagesPageState extends State<AddImagesPage> {
     setState(() => imageFiles.add(file));
   }
 
-  Future<File> cropSquareImage(File imageFile) async {
-    await ImageCropper.cropImage(
+  Future<File?> cropSquareImage(File imageFile) async {
+    return await ImageCropper.cropImage(
       sourcePath: imageFile.path,
       aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
       aspectRatioPresets: [CropAspectRatioPreset.square],

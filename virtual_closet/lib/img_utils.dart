@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 class Utils {
   static Future<File?> pickMedia({
     required bool isGallery,
-    required Future<File> Function(File file) cropImage,
+    required Future<File?> Function(File file) cropImage,
   }) async {
     final source = isGallery ? ImageSource.gallery : ImageSource.camera;
     // ignore: deprecated_member_use
