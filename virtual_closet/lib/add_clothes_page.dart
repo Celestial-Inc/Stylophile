@@ -23,12 +23,11 @@ class _AddClothesPageState extends State<AddClothesPage> {
       isImageSelected = true;
     });
 
-    //Box shirtsBox = Hive.box('shirts');
-    //shirtsBox.put('myNewShirt', base64Image); //todo: generate a random image name
-    //setState(() {
-    //  isClothingTypeSelected = true;
-    //});
-    //
+    Box shirtsBox = Hive.box('shirts');
+    shirtsBox.put('myNewShirt', base64Image); //todo: generate a random image name
+    setState(() {
+      isClothingTypeSelected = true;
+    });
   }
 
   @override
