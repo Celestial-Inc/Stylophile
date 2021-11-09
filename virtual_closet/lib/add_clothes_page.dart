@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
 import 'package:hive/hive.dart';
+import 'dart:math';
 
 class AddClothesPage extends StatefulWidget {
   @override
@@ -24,10 +25,12 @@ class _AddClothesPageState extends State<AddClothesPage> {
     });
 
     Box shirtsBox = Hive.box('shirts');
-    shirtsBox.put('myNewShirt', base64Image); //todo: generate a random image name
-    setState(() {
-      isClothingTypeSelected = true;
-    });
+    main() {
+  var rng = new Random();
+  for (var i = 0; i < 10; i++) {
+    print(rng.nextInt(100));
+  }
+}
   }
 
   @override
