@@ -77,6 +77,13 @@ class _AddClothesPageState extends State<AddClothesPage> {
     }
 
     // todo: show the user their image and a nice message
-    return Scaffold(body: Center(child: Text('Thank you, you added x... ')));
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('Thank you, you added this picture:',
+            style: TextStyle(fontSize: 40)),
+        Image.memory(base64Decode(base64Image!)),
+      ],
+    );
   }
 }
