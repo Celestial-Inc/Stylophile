@@ -12,7 +12,6 @@ class AddClothesPage extends StatefulWidget {
 
 class _AddClothesPageState extends State<AddClothesPage> {
   bool isImageSelected = false;
-  bool isClothingTypeSelected = false;
   String? base64Image;
   String? clothingType;
 
@@ -24,15 +23,15 @@ class _AddClothesPageState extends State<AddClothesPage> {
     setState(() {
       isImageSelected = true;
     });
+  }
 
+  void pickClothing(String? value) async {
     Random random = Random();
     int randomNumber = random.nextInt(1000000);
-
-    Box shirtsBox = Hive.box('shirts');
-    shirtsBox.put('myNewShirt' + randomNumber.toString(),
-        base64Image); //todo: generate a random image name
+    Box shirtsBox = Hive.box(value!);
+    shirtsBox.put('myNewShirt' + randomNumber.toString(), base64Image);
     setState(() {
-      isClothingTypeSelected = true;
+      clothingType = value;
     });
   }
 
@@ -48,10 +47,33 @@ class _AddClothesPageState extends State<AddClothesPage> {
       return Scaffold(body: Center(child: Text('Loading...')));
     }
 
-    if (isClothingTypeSelected == false) {
-      // todo: ask the user if they want to save a shirt, bottom, or shoe
-      return Scaffold(
-          body: Center(child: Text('Select what type of clothing...')));
+    if (clothingType == null) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ListTile(
+            title: const Text('Top'),
+            leading: Radio<String>(
+                value: 'shirts',
+                groupValue: clothingType,
+                onChanged: pickClothing),
+          ),
+          ListTile(
+            title: const Text('Bottom'),
+            leading: Radio<String>(
+                value: 'bottoms',
+                groupValue: clothingType,
+                onChanged: pickClothing),
+          ),
+          ListTile(
+            title: const Text('Shoe'),
+            leading: Radio<String>(
+                value: 'shoes',
+                groupValue: clothingType,
+                onChanged: pickClothing),
+          ),
+        ],
+      );
     }
 
     // todo: show the user their image and a nice message
