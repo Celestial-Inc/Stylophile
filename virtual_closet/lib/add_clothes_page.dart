@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
@@ -23,8 +25,12 @@ class _AddClothesPageState extends State<AddClothesPage> {
       isImageSelected = true;
     });
 
+    Random random = Random();
+    int randomNumber = random.nextInt(1000000);
+
     Box shirtsBox = Hive.box('shirts');
-    shirtsBox.put('myNewShirt', base64Image); //todo: generate a random image name
+    shirtsBox.put('myNewShirt' + randomNumber.toString(),
+        base64Image); //todo: generate a random image name
     setState(() {
       isClothingTypeSelected = true;
     });
@@ -44,7 +50,8 @@ class _AddClothesPageState extends State<AddClothesPage> {
 
     if (isClothingTypeSelected == false) {
       // todo: ask the user if they want to save a shirt, bottom, or shoe
-      return Scaffold(body: Center(child: Text('Select what type of clothing...')));
+      return Scaffold(
+          body: Center(child: Text('Select what type of clothing...')));
     }
 
     // todo: show the user their image and a nice message
