@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:virtual_closet/loading_screen.dart';
 import 'package:hive/hive.dart';
 import 'dart:convert';
-import 'main.dart';
-import 'home_page.dart';
 
 class WardrobePage extends StatefulWidget {
   @override
@@ -98,13 +97,13 @@ Widget buildCarousel(BuildContext context, hiveBox) {
                             onPressed: () {
                               Navigator.pop(context, 'Yes');
                               hiveBox.deleteAt(
-                                  index); //TODO: deletion of images is not working yet, red box appears and says that the index has to be less than 3
+                                  index); //TODO: only works if you switch to a different page after deletion and then come back, -> maybe go to loading page and back, this way means no stateful widget = less work same result?
                               hiveBox.loadHiveImages();
                               hiveBox.Update();
-                              BottomNavigationBar.setState(() {
-                                //TODO name.setState
-                                _currentIndex = 0;
-                              });
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => LoadingScreen()),
+                              );
                             },
                             child: const Text('Yes'),
                           ),
