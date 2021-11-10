@@ -89,11 +89,15 @@ Widget buildCarousel(BuildContext context, hiveBox) {
                         content: const Text('Do you wish to delete this Image?'),
                         actions: <Widget>[
                           TextButton(
-                            onPressed: () => Navigator.pop(context, 'No'),
+                            onPressed: () => {Navigator.pop(context, 'No')},
                             child: const Text('No'),
                           ),
                           TextButton(
-                            onPressed: () => Navigator.pop(context, 'Yes'),
+                            onPressed: () {
+                              Navigator.pop(context, 'Yes');
+                              hiveBox.deleteAt(
+                                  index); //todo: deletion of images is not working yet, red box appears and says that the index has to be less than 3
+                            },
                             child: const Text('Yes'),
                           ),
                         ],
