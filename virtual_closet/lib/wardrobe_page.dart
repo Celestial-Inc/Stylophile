@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:virtual_closet/imagedeletion_loadingpage.dart';
 import 'package:virtual_closet/loading_screen.dart';
 import 'package:hive/hive.dart';
 import 'dart:convert';
@@ -99,10 +100,15 @@ Widget buildCarousel(BuildContext context, hiveBox) {
                               hiveBox.deleteAt(
                                   index); //TODO: only works if you switch to a different page after deletion and then come back, -> maybe go to loading page and back, this way means no stateful widget = less work same result?
                               hiveBox.loadHiveImages();
-                              hiveBox.Update();
                               Navigator.push(
                                 context,
+<<<<<<< HEAD
                                 MaterialPageRoute(builder: (context) => LoadingScreen()),
+=======
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        LoadingImageDeletion()),
+>>>>>>> 53d7c8f (does not send you to loading page after pressing yes)
                               );
                             },
                             child: const Text('Yes'),
