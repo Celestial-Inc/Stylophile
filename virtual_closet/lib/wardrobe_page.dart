@@ -11,7 +11,7 @@ class WardrobePage extends StatefulWidget {
 class _WardrobePageState extends State<WardrobePage> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       backgroundColor: Colors.purple[100],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -68,7 +68,40 @@ Widget buildCarousel(BuildContext context, hiveBox) {
         options: CarouselOptions(height: 200, enlargeStrategy: CenterPageEnlargeStrategy.height),
         itemCount: itemCount,
         itemBuilder: (context, index, realIndex) {
-          return buildImageFromAsset(hiveBox, index);
+          return Stack(
+            children: [
+              buildImageFromAsset(hiveBox, index),
+              Positioned(
+                  height: 20,
+                  width: 20,
+                  right: 0.0,
+                  top: 0.0,
+                  child: FloatingActionButton(
+                    child: const Icon(
+                      Icons.close_outlined,
+                      size: 10,
+                    ),
+                    backgroundColor: Colors.purple[600],
+                    onPressed: () => showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Warning!'),
+                        content: const Text('Do you wish to delete this Image?'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'No'),
+                            child: const Text('No'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Yes'),
+                            child: const Text('Yes'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
+            ],
+          );
         },
       ),
     ),
