@@ -9,6 +9,8 @@ class WardrobePage extends StatefulWidget {
 }
 
 class _WardrobePageState extends State<WardrobePage> {
+  bool _forceRefresh = false;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -80,6 +82,10 @@ class _WardrobePageState extends State<WardrobePage> {
                               onPressed: () {
                                 Navigator.pop(context, 'Yes');
                                 hiveBox.deleteAt(index);
+                                setState(() {
+                                  // set forceRefresh to the opposite of whatever it is. It just flips between true and false.
+                                  _forceRefresh = !_forceRefresh;
+                                });
                               },
                               child: const Text('Yes'),
                             ),
