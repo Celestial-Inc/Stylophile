@@ -39,6 +39,12 @@ class _WardrobePageState extends State<WardrobePage> {
     Box hiveBox = Hive.box(boxName);
 
     var itemCount = hiveBox.length;
+
+    // if there are no items then just display a nice text message
+    if (itemCount == 0) {
+      return Text('Press Add to add ' + hiveBox.name.toString(), style: TextStyle(fontSize: 40));
+    }
+
     return Scaffold(
       backgroundColor: Colors.purple[100],
       body: Center(
