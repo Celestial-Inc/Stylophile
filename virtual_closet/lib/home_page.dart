@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
                 textStyle:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             child: const Text('Casual',
-            style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
+                style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
           ),
           const SizedBox(height: 20),
           ElevatedButton(
@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
                 textStyle:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             child: const Text('Fancy',
-            style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
+                style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
           ),
           const SizedBox(height: 20),
           ElevatedButton(
@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                 textStyle:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             child: const Text('Warm',
-            style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
+                style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
           ),
           const SizedBox(height: 20),
           ElevatedButton(
@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
             child: const Text('Cold',
                 style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
           ),
-                const SizedBox(height: 20),
+          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
@@ -95,7 +95,7 @@ class HomePage extends StatelessWidget {
                 textStyle:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             child: const Text('Sports',
-            style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
+                style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
           ),
         ],
       ),
