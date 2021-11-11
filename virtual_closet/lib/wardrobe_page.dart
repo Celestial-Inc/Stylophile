@@ -15,6 +15,7 @@ class _WardrobePageState extends State<WardrobePage> {
       backgroundColor: Colors.purple[100],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(child: ShirtCarousel(), height: 200),
           Container(child: PantCarousel(), height: 200),
@@ -65,7 +66,8 @@ Widget buildCarousel(BuildContext context, hiveBox) {
     backgroundColor: Colors.purple[100],
     body: Center(
       child: CarouselSlider.builder(
-        options: CarouselOptions(height: 200, enlargeStrategy: CenterPageEnlargeStrategy.height),
+        options: CarouselOptions(
+            height: 200, enlargeStrategy: CenterPageEnlargeStrategy.height),
         itemCount: itemCount,
         itemBuilder: (context, index, realIndex) {
           return buildImageFromAsset(hiveBox, index);
