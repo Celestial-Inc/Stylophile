@@ -33,23 +33,32 @@ Future<void> initializeHive() async {
   await Hive.openBox('outfits');
   Box shirtsBox = Hive.box('shirts');
   if (shirtsBox.isEmpty) {
-    shirtsBox.put('shirt1', await convertImageToString('assets/images/shirt01.jpg'));
-    shirtsBox.put('shirt2', await convertImageToString('assets/images/shirt02.jpg'));
-    shirtsBox.put('shirt3', await convertImageToString('assets/images/shirt03.jpg'));
+    shirtsBox.put(
+        'shirt1', await convertImageToString('assets/images/shirt01.jpg'));
+    shirtsBox.put(
+        'shirt2', await convertImageToString('assets/images/shirt02.jpg'));
+    shirtsBox.put(
+        'shirt3', await convertImageToString('assets/images/shirt03.jpg'));
   }
 
   Box bottomsBox = Hive.box('bottoms');
   if (bottomsBox.isEmpty) {
-    bottomsBox.put('bottoms1', await convertImageToString('assets/images/pants01.jpg'));
-    bottomsBox.put('bottoms2', await convertImageToString('assets/images/pants02.jpeg'));
-    bottomsBox.put('bottoms3', await convertImageToString('assets/images/pants03.jpg'));
+    bottomsBox.put(
+        'bottoms1', await convertImageToString('assets/images/pants01.jpg'));
+    bottomsBox.put(
+        'bottoms2', await convertImageToString('assets/images/pants02.jpeg'));
+    bottomsBox.put(
+        'bottoms3', await convertImageToString('assets/images/pants03.jpg'));
   }
 
   Box shoesBox = Hive.box('shoes');
   if (shoesBox.isEmpty) {
-    shoesBox.put('shoes1', await convertImageToString('assets/images/shoes01.jpg'));
-    shoesBox.put('shoes2', await convertImageToString('assets/images/shoes02.png'));
-    shoesBox.put('shoes3', await convertImageToString('assets/images/shoes03.jpg'));
+    shoesBox.put(
+        'shoes1', await convertImageToString('assets/images/shoes01.jpg'));
+    shoesBox.put(
+        'shoes2', await convertImageToString('assets/images/shoes02.png'));
+    shoesBox.put(
+        'shoes3', await convertImageToString('assets/images/shoes03.jpg'));
   }
   Box outfitsBox = Hive.box('outfits');
   if (outfitsBox.isEmpty) {

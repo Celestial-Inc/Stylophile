@@ -12,7 +12,7 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
   late LocationHelper locationData;
-  WeatherData? currentWeather; 
+  WeatherData? currentWeather;
 
   Future<void> getLocationData() async {
     locationData = LocationHelper();
@@ -70,7 +70,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
           weatherData: currentWeather!,
         ),
       );
-
     }
   }
 }

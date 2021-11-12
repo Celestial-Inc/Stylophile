@@ -14,7 +14,6 @@ class WeatherDisplayData {
 }
 
 class WeatherData {
-  
   WeatherData({required this.locationData});
 
   LocationHelper locationData;
@@ -29,8 +28,8 @@ class WeatherData {
     double longitude = locationData.longitude ?? 0.0;
     double latitude = locationData.latitude ?? 0.0;
 
-    Response response = await get(
-        Uri.parse('http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric'));
+    Response response = await get(Uri.parse(
+        'http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric'));
 
     if (response.statusCode == 200) {
       String data = response.body;

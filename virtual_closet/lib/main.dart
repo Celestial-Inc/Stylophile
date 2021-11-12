@@ -8,7 +8,8 @@ import 'package:virtual_closet/wardrobe_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
-  initializeHive().then((_) => initializeDateFormatting().then((_) => runApp(MyApp())));
+  initializeHive()
+      .then((_) => initializeDateFormatting().then((_) => runApp(MyApp())));
 }
 
 class MyApp extends StatelessWidget {
@@ -28,7 +29,13 @@ class PageFrame extends StatefulWidget {
 
 class _PageFrameState extends State<PageFrame> {
   int _currentIndex = 0; // default selected navbar item is "Home"
-  List _screens = [HomePage(), WardrobePage(), AddClothesPage(), CalendarPage(), WeatherPage()];
+  List _screens = [
+    HomePage(),
+    WardrobePage(),
+    AddClothesPage(),
+    CalendarPage(),
+    WeatherPage()
+  ];
 
   @override
   Widget build(BuildContext context) {

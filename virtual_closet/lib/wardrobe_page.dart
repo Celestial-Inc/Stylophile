@@ -9,70 +9,98 @@ class WardrobePage extends StatefulWidget {
 }
 
 class _WardrobePageState extends State<WardrobePage> {
+  bool _forceRefresh = false;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Colors.purple[100],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(child: ShirtCarousel(), height: 200),
-          Container(child: PantCarousel(), height: 200),
-          Container(child: ShoeCarousel(), height: 200)
+          Container(child: buildCarousel(context, 'shirts'), height: 200),
+          Container(child: buildCarousel(context, 'bottoms'), height: 200),
+          Container(child: buildCarousel(context, 'shoes'), height: 200)
         ],
       ),
     );
   }
-}
 
-class ShirtCarousel extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    Box box = Hive.box('shirts');
-    return buildCarousel(context, box);
+  Widget buildImageFromAsset(Box hiveBox, int index) {
+    String imageAsString = hiveBox.getAt(index);
+    var container = Container(
+      margin: EdgeInsets.symmetric(horizontal: 8),
+      color: Colors.pink[200],
+      child: Image.memory(base64Decode(imageAsString), fit: BoxFit.cover),
+    );
+    return container;
   }
-}
 
-class PantCarousel extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    Box box = Hive.box('bottoms');
-    return buildCarousel(context, box);
-  }
-}
+  Widget buildCarousel(BuildContext context, String boxName) {
+    // boxName is either 'shirts', 'bottoms', or 'shoes'
+    Box hiveBox = Hive.box(boxName);
 
-class ShoeCarousel extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    Box box = Hive.box('shoes');
-    return buildCarousel(context, box);
-  }
-}
+    var itemCount = hiveBox.length;
 
-Widget buildImageFromAsset(Box hiveBox, int index) {
-  String imageAsString = hiveBox.getAt(index);
-  var container = Container(
-    margin: EdgeInsets.symmetric(horizontal: 8),
-    color: Colors.pink[200],
-    child: Image.memory(base64Decode(imageAsString), fit: BoxFit.cover),
-  );
-  return container;
-}
+    // if there are no items then just display a nice text message
+    if (itemCount == 0) {
+      return Text('Press Add to add ' + hiveBox.name.toString(),
+          style: TextStyle(fontSize: 40));
+    }
 
-Widget buildCarousel(BuildContext context, hiveBox) {
-  var itemCount = hiveBox.length;
-  return Scaffold(
-    backgroundColor: Colors.purple[100],
-    body: Center(
-      child: CarouselSlider.builder(
-        options: CarouselOptions(
-            height: 200, enlargeStrategy: CenterPageEnlargeStrategy.height),
-        itemCount: itemCount,
-        itemBuilder: (context, index, realIndex) {
-          return buildImageFromAsset(hiveBox, index);
-        },
+    return Scaffold(
+      backgroundColor: Colors.purple[100],
+      body: Center(
+        child: CarouselSlider.builder(
+          options: CarouselOptions(
+              height: 200, enlargeStrategy: CenterPageEnlargeStrategy.height),
+          itemCount: itemCount,
+          itemBuilder: (context, index, realIndex) {
+            return Stack(
+              children: [
+                buildImageFromAsset(hiveBox, index),
+                Positioned(
+                    height: 20,
+                    width: 20,
+                    right: 0.0,
+                    top: 0.0,
+                    child: FloatingActionButton(
+                      child: const Icon(
+                        Icons.close_outlined,
+                        size: 10,
+                      ),
+                      backgroundColor: Colors.purple[600],
+                      onPressed: () => showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Warning!'),
+                          content:
+                              const Text('Do you wish to delete this Image?'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => {Navigator.pop(context, 'No')},
+                              child: const Text('No'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context, 'Yes');
+                                hiveBox.deleteAt(index);
+                                setState(() {
+                                  // set forceRefresh to the opposite of whatever it is. It just flips between true and false.
+                                  _forceRefresh = !_forceRefresh;
+                                });
+                              },
+                              child: const Text('Yes'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
+              ],
+            );
+          },
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

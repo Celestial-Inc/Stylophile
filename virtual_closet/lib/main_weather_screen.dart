@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:virtual_closet/weather.dart';
 import 'package:virtual_closet/constants.dart';
 
-
 class MainScreen extends StatefulWidget {
   MainScreen({required this.weatherData});
 
