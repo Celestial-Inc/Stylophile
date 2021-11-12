@@ -102,7 +102,7 @@ class HomePage extends StatelessWidget {
                   child: const Text('Sports',
                       style: TextStyle(color: Color.fromARGB(225, 51, 0, 102))),
                 ),
-                const SizedBox(height: 200),
+                const SizedBox(height: 150),
                 FloatingActionButton(
                   onPressed: () {
                     Navigator.push(
