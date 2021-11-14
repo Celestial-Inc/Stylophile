@@ -1,5 +1,3 @@
-import 'dart:collection';
-import 'package:table_calendar/table_calendar.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
@@ -13,16 +11,6 @@ final kLastDay = DateTime(kToday.year, kToday.month + 12, kToday.day);
 final today = DateTime(kToday.year, kToday.month, kToday.day);
 final tomorrow = DateTime(kToday.year, kToday.month, kToday.day + 1);
 
-/// Using a [LinkedHashMap] is highly recommended if you decide to use a map.
-final kEvents = LinkedHashMap<DateTime, List<String>>(
-  equals: isSameDay,
-  hashCode: getHashCode,
-);
-
-int getHashCode(DateTime key) {
-  return key.day * 1000000 + key.month * 10000 + key.year;
-}
-
 Future<void> initializeHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter(OutfitAdapter());
@@ -31,6 +19,8 @@ Future<void> initializeHive() async {
   await Hive.openBox('bottoms');
   await Hive.openBox('shoes');
   await Hive.openBox('outfits');
+  await Hive.openBox('calendar');
+
   Box shirtsBox = Hive.box('shirts');
   if (shirtsBox.isEmpty) {
     shirtsBox.put(
@@ -61,15 +51,21 @@ Future<void> initializeHive() async {
         'shoes3', await convertImageToString('assets/images/shoes03.jpg'));
   }
   Box outfitsBox = Hive.box('outfits');
+  Outfit outfit1 = Outfit('shirt1', 'bottoms2', 'shoes3');
+  Outfit outfit2 = Outfit('shirt3', 'bottoms1', 'shoes3');
   if (outfitsBox.isEmpty) {
-    Outfit outfit1 = Outfit('shirt1', 'bottoms2', 'shoes3');
-    Outfit outfit2 = Outfit('shirt3', 'bottoms1', 'shoes3');
     outfitsBox.put('outfit1', outfit1);
     outfitsBox.put('outfit2', outfit2);
   }
+  Box calendarBox = Hive.box('calendar');
+  if (calendarBox.isEmpty) {
+    calendarBox.put(createCalendarKey(today), [outfit2]);
+    calendarBox.put(createCalendarKey(tomorrow), [outfit1, outfit2]);
+  }
+}
 
-  kEvents[today] = ['outfit2'];
-  kEvents[tomorrow] = ['outfit1', 'outfit2'];
+String createCalendarKey(DateTime date) {
+  return date.year.toString() + '-' + date.month.toString() + '-' + date.day.toString();
 }
 
 Future<String> convertImageToString(String imagePath) async {

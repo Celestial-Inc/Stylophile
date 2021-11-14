@@ -12,7 +12,7 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-  late final ValueNotifier<List<Outfit>> _selectedEvents;
+  late final ValueNotifier<List<dynamic>> _selectedEvents;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
@@ -30,21 +30,14 @@ class _CalendarPageState extends State<CalendarPage> {
     super.dispose();
   }
 
-  List<Outfit> _getEventsForDay(DateTime day) {
-    // Implementation example
-    List<String> allOutfitNames = kEvents[day] ?? [];
-    Box outfitsBox = Hive.box('outfits');
-    List<Outfit> allOutfits = [];
-    // loop over all out names
-    for (var x = 0; x < allOutfitNames.length; x++) {
-      // for-each outfit name, look up the outfit in Hive
-      String outfitName = allOutfitNames.elementAt(x);
-      Outfit outfit = outfitsBox.get(outfitName);
-      // add the outfit from hive into the allOutfits list
-      allOutfits.add(outfit);
+  List<dynamic> _getEventsForDay(DateTime date) {
+    var box = Hive.box('calendar');
+    var outfitList = box.get(createCalendarKey(date));
+    if (outfitList == null) {
+      return [];
+    } else {
+      return outfitList;
     }
-
-    return allOutfits;
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -100,7 +93,7 @@ class _CalendarPageState extends State<CalendarPage> {
         ),
         const SizedBox(height: 8.0),
         Expanded(
-          child: ValueListenableBuilder<List<Outfit>>(
+          child: ValueListenableBuilder<List<dynamic>>(
             valueListenable: _selectedEvents,
             builder: (context, value, _) {
               return ListView.builder(
