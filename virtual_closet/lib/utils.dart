@@ -18,7 +18,6 @@ Future<void> initializeHive() async {
   await Hive.openBox('shirts');
   await Hive.openBox('bottoms');
   await Hive.openBox('shoes');
-  await Hive.openBox('outfits');
   await Hive.openBox('calendar');
 
   Box shirtsBox = Hive.box('shirts');
@@ -41,13 +40,10 @@ Future<void> initializeHive() async {
     shoesBox.put('shoes2', await convertImageToString('assets/images/shoes02.png'));
     shoesBox.put('shoes3', await convertImageToString('assets/images/shoes03.jpg'));
   }
-  Box outfitsBox = Hive.box('outfits');
+
   Outfit outfit1 = Outfit('shirt1', 'bottoms2', 'shoes3');
   Outfit outfit2 = Outfit('shirt3', 'bottoms1', 'shoes3');
-  if (outfitsBox.isEmpty) {
-    outfitsBox.put('outfit1', outfit1);
-    outfitsBox.put('outfit2', outfit2);
-  }
+
   Box calendarBox = Hive.box('calendar');
   if (calendarBox.isEmpty) {
     calendarBox.put(createCalendarKey(today), [outfit2]);
