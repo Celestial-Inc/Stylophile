@@ -76,7 +76,6 @@ class _AddClothesPageState extends State<AddClothesPage> {
       );
     }
 
-    // todo: show the user their image and a nice message
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
