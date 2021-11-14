@@ -56,15 +56,22 @@ class _CalendarPageState extends State<CalendarPage> {
     Box bottomsBox = Hive.box('bottoms');
     Box shoesBox = Hive.box('shoes');
 
-    String shirtImageAsString = shirtsBox.get(myOutfit.top);
-    String bottomImageAsString = bottomsBox.get(myOutfit.bottom);
-    String shoesImageAsString = shoesBox.get(myOutfit.shoe);
+    String? shirtImageAsString = shirtsBox.get(myOutfit.top);
+    String? bottomImageAsString = bottomsBox.get(myOutfit.bottom);
+    String? shoesImageAsString = shoesBox.get(myOutfit.shoe);
 
     return [
-      Image.memory(base64Decode(shirtImageAsString), fit: BoxFit.cover),
-      Image.memory(base64Decode(bottomImageAsString), fit: BoxFit.cover),
-      Image.memory(base64Decode(shoesImageAsString), fit: BoxFit.cover)
+      tryToMakeImage(shirtImageAsString),
+      tryToMakeImage(bottomImageAsString),
+      tryToMakeImage(shoesImageAsString),
     ];
+  }
+
+  Widget tryToMakeImage(String? base64ImageString) {
+    if (base64ImageString == null) {
+      return Text('Missing', style: TextStyle(fontSize: 40));
+    }
+    return Image.memory(base64Decode(base64ImageString), fit: BoxFit.cover);
   }
 
   @override
