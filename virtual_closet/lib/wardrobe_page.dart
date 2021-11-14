@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hive/hive.dart';
 import 'dart:convert';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:virtual_closet/outfit.dart';
+import 'package:virtual_closet/utils.dart';
 
 class WardrobePage extends StatefulWidget {
   @override
@@ -10,20 +13,50 @@ class WardrobePage extends StatefulWidget {
 
 class _WardrobePageState extends State<WardrobePage> {
   bool _forceRefresh = false;
+  Outfit currentOutfit = Outfit('', '', '');
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       backgroundColor: Colors.purple[100],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(child: buildCarousel(context, 'shirts'), height: 200),
           Container(child: buildCarousel(context, 'bottoms'), height: 200),
-          Container(child: buildCarousel(context, 'shoes'), height: 200)
+          Container(child: buildCarousel(context, 'shoes'), height: 200),
+          TextButton(
+              onPressed: () {
+                DatePicker.showDatePicker(context, showTitleActions: true, minTime: kFirstDay, maxTime: kLastDay, onConfirm: (date) {
+                  Box calendarBox = Hive.box('calendar');
+                  List listOfOutfits = calendarBox.get(createCalendarKey(date));
+                  if (listOfOutfits == null) {
+                    calendarBox.put(createCalendarKey(date), [currentOutfit]);
+                  } else {
+                    listOfOutfits.add(currentOutfit);
+                    calendarBox.put(createCalendarKey(date), listOfOutfits);
+                  }
+                }, currentTime: DateTime.now());
+              },
+              child: Text(
+                'Share to Calendar',
+                style: TextStyle(color: Colors.purple),
+              ))
         ],
       ),
     );
+  }
+
+  void initState() {
+    super.initState();
+
+    // this code runs at the start of the screen
+    Box shirtsBox = Hive.box('shirts');
+    currentOutfit.top = shirtsBox.keyAt(0);
+    Box bottomsBox = Hive.box('bottoms');
+    currentOutfit.bottom = bottomsBox.keyAt(0);
+    Box shoesBox = Hive.box('shoes');
+    currentOutfit.shoe = shoesBox.keyAt(0);
   }
 
   Widget buildDeleteButton(Box hiveBox, int index) {
@@ -83,8 +116,7 @@ class _WardrobePageState extends State<WardrobePage> {
 
     // if there are no items then just display a nice text message
     if (itemCount == 0) {
-      return Text('Press Add to add ' + hiveBox.name.toString(),
-          style: TextStyle(fontSize: 40));
+      return Text('Press Add to add ' + hiveBox.name.toString(), style: TextStyle(fontSize: 40));
     }
 
     return Scaffold(
@@ -92,7 +124,17 @@ class _WardrobePageState extends State<WardrobePage> {
       body: Center(
         child: CarouselSlider.builder(
           options: CarouselOptions(
-              height: 200, enlargeStrategy: CenterPageEnlargeStrategy.height),
+              height: 200,
+              enlargeStrategy: CenterPageEnlargeStrategy.height,
+              onPageChanged: (index, reason) {
+                if (boxName == 'shirts') {
+                  currentOutfit.top = hiveBox.keyAt(index);
+                } else if (boxName == 'bottoms') {
+                  currentOutfit.bottom = hiveBox.keyAt(index);
+                } else if (boxName == 'shoes') {
+                  currentOutfit.shoe = hiveBox.keyAt(index);
+                }
+              }),
           itemCount: itemCount,
           itemBuilder: (context, index, realIndex) {
             return Stack(
