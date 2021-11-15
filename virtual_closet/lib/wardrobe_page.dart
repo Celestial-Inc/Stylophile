@@ -29,10 +29,10 @@ class _WardrobePageState extends State<WardrobePage> {
               onPressed: () {
                 DatePicker.showDatePicker(context, showTitleActions: true, minTime: kFirstDay, maxTime: kLastDay, onConfirm: (date) {
                   Box calendarBox = Hive.box('calendar');
-                  List listOfOutfits = calendarBox.get(createCalendarKey(date));
-                  if (listOfOutfits == null) {
+                  if (calendarBox.containsKey(createCalendarKey(date)) == false) {
                     calendarBox.put(createCalendarKey(date), [currentOutfit]);
                   } else {
+                    List listOfOutfits = calendarBox.get(createCalendarKey(date));
                     listOfOutfits.add(currentOutfit);
                     calendarBox.put(createCalendarKey(date), listOfOutfits);
                   }
