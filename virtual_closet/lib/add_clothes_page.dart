@@ -12,8 +12,21 @@ class AddClothesPage extends StatefulWidget {
 
 class _AddClothesPageState extends State<AddClothesPage> {
   bool isImageSelected = false;
+  bool isCategorySelected = false;
   String? base64Image;
   String? clothingType;
+  String? clothingCategory;
+
+  @override
+  void initState() {
+    super.initState();
+    pickImage();
+
+    // this code runs at the start of the screen
+    Box casualBox = Hive.box('casual');
+    Box FancyBox = Hive.box('fancy');
+    Box sportsBox = Hive.box('sports');
+  }
 
   void pickImage() async {
     final ImagePicker _picker = ImagePicker();
@@ -35,10 +48,14 @@ class _AddClothesPageState extends State<AddClothesPage> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    pickImage();
+  void pickCategory(String? value) async {
+    setState(() {
+      Random random = Random();
+      int randomNumber = random.nextInt(1000000);
+      Box casualBox = Hive.box(value!);
+      casualBox.put('myNewCasual' + randomNumber.toString(), base64Image);
+      clothingCategory = value;
+    });
   }
 
   @override
@@ -76,13 +93,48 @@ class _AddClothesPageState extends State<AddClothesPage> {
       );
     }
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text('Thank you, you added this picture:',
-            style: TextStyle(fontSize: 40)),
-        Image.memory(base64Decode(base64Image!)),
-      ],
-    );
+    Widget buildCategorySelect(BuildContext context) {
+      if (isCategorySelected == false) {
+        return Scaffold(body: Center(child: Text('Loading...')));
+      }
+
+      if (clothingCategory == null) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ListTile(
+              title: const Text('Casual'),
+              leading: Radio<String>(
+                  value: 'casual',
+                  groupValue: clothingCategory,
+                  onChanged: pickCategory),
+            ),
+            ListTile(
+              title: const Text('Fancy'),
+              leading: Radio<String>(
+                  value: 'fancy',
+                  groupValue: clothingCategory,
+                  onChanged: pickCategory),
+            ),
+            ListTile(
+              title: const Text('Sports'),
+              leading: Radio<String>(
+                  value: 'sports',
+                  groupValue: clothingCategory,
+                  onChanged: pickCategory),
+            ),
+          ],
+        );
+      }
+
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Thank you, you added this picture:',
+              style: TextStyle(fontSize: 40)),
+          Image.memory(base64Decode(base64Image!)),
+        ],
+      );
+    }
   }
 }
