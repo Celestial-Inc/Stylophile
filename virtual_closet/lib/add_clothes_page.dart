@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
 import 'package:hive/hive.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AddClothesPage extends StatefulWidget {
   @override
@@ -79,9 +80,17 @@ class _AddClothesPageState extends State<AddClothesPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('Thank you, you added this picture:',
-            style: TextStyle(fontSize: 40)),
-        Image.memory(base64Decode(base64Image!)),
+        Container(
+            child: Text('Thank you, you added this picture:',
+                style: GoogleFonts.notoSans(fontSize: 40))),
+        Container(
+          width: 500,
+          height: 500,
+          child: Image.memory(
+            base64Decode(base64Image!),
+            fit: BoxFit.contain,
+          ),
+        ),
       ],
     );
   }

@@ -106,8 +106,11 @@ class _CalendarPageState extends State<CalendarPage> {
               return ListView.builder(
                 itemCount: value.length,
                 itemBuilder: (context, index) {
-                  return Column(
-                    children: getOutfitImages(value[index]),
+                  return Scaffold(
+                    body: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: getOutfitImages(value[index]),
+                    ),
                   );
                 },
               );
