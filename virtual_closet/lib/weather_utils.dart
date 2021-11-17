@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:virtual_closet/location.dart';
-import 'package:virtual_closet/constants.dart';
-import 'package:virtual_closet/main.dart';
+import 'package:virtual_closet/weather_icons.dart';
 
 class WeatherDisplayData {
   Icon? weatherIcon;
@@ -14,7 +12,6 @@ class WeatherDisplayData {
 }
 
 class WeatherData {
-  
   WeatherData({required this.locationData});
 
   LocationHelper locationData;
@@ -29,8 +26,8 @@ class WeatherData {
     double longitude = locationData.longitude ?? 0.0;
     double latitude = locationData.latitude ?? 0.0;
 
-    Response response = await get(
-        Uri.parse('http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric'));
+    Response response =
+        await get(Uri.parse('http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric'));
 
     if (response.statusCode == 200) {
       String data = response.body;
@@ -50,25 +47,47 @@ class WeatherData {
   }
 
   WeatherDisplayData getWeatherDisplayData() {
-    if (currentCondition < 600) {
+    if (currentCondition < 300) {
+      return WeatherDisplayData(
+        weatherIcon: kStormIcon,
+        weatherImage: AssetImage('assets/images/sunny.png'),
+      );
+    } else if (currentCondition < 500) {
+      return WeatherDisplayData(
+        weatherIcon: kDrizzleIcon,
+        weatherImage: AssetImage('assets/images/sunny.png'),
+      );
+    } else if (currentCondition < 600) {
+      return WeatherDisplayData(
+        weatherIcon: kRainIcon,
+        weatherImage: AssetImage('assets/images/sunny.png'),
+      );
+    } else if (currentCondition < 700) {
+      return WeatherDisplayData(
+        weatherIcon: kSnowIcon,
+        weatherImage: AssetImage('assets/images/sunny.png'),
+      );
+    } else if (currentCondition < 800) {
+      return WeatherDisplayData(
+        weatherIcon: kLavastormIcon,
+        weatherImage: AssetImage('assets/images/sunny.png'),
+      );
+    } else if (currentCondition == 800) {
+      return WeatherDisplayData(
+        weatherIcon: kSunIcon,
+        weatherImage: AssetImage('assets/images/sunny.png'),
+      );
+    } else {
       return WeatherDisplayData(
         weatherIcon: kCloudIcon,
         weatherImage: AssetImage('assets/images/cloud.png'),
       );
-    } else {
-      var now = new DateTime.now();
-
-      if (now.hour >= 15) {
-        return WeatherDisplayData(
-          weatherImage: AssetImage('assets/images/night.png'),
-          weatherIcon: kMoonIcon,
-        );
-      } else {
-        return WeatherDisplayData(
-          weatherIcon: kSunIcon,
-          weatherImage: AssetImage('assets/images/sunny.png'),
-        );
-      }
     }
   }
 }
+
+const kLinearGradient = LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  colors: [Colors.purple, Colors.blue],
+);

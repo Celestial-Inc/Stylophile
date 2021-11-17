@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:virtual_closet/constants.dart';
-import 'package:virtual_closet/main_weather_screen.dart';
+import 'package:virtual_closet/weather_page.dart';
 import 'package:virtual_closet/location.dart';
-import 'package:virtual_closet/weather.dart';
+import 'package:virtual_closet/weather_utils.dart';
 
-class LoadingScreen extends StatefulWidget {
+class WeatherLoaderPage extends StatefulWidget {
   @override
-  _LoadingScreenState createState() => _LoadingScreenState();
+  _WeatherLoaderPageState createState() => _WeatherLoaderPageState();
 }
 
-class _LoadingScreenState extends State<LoadingScreen> {
+class _WeatherLoaderPageState extends State<WeatherLoaderPage> {
   late LocationHelper locationData;
-  WeatherData? currentWeather; 
+  WeatherData? currentWeather;
 
   Future<void> getLocationData() async {
     locationData = LocationHelper();
@@ -31,8 +30,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     WeatherData weatherData = WeatherData(locationData: locationData);
     await weatherData.getCurrentTemperature();
 
-    if (weatherData.currentTemperature == null ||
-        weatherData.currentCondition == null) {
+    if (weatherData.currentTemperature == null || weatherData.currentCondition == null) {
       // todo: Handle no weather
     }
 
@@ -66,11 +64,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
       );
     } else {
       return new Scaffold(
-        body: MainScreen(
+        body: WeatherPage(
           weatherData: currentWeather!,
         ),
       );
-
     }
   }
 }
