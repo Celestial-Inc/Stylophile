@@ -16,6 +16,8 @@ class WeatherData {
 
   LocationHelper locationData;
   double currentTemperature = 0.0;
+  double minTemp = 0.0;
+  double maxTemp = 0.0;
   int currentCondition = 0;
   String currentConditionText = '';
   String currentLocationText = '';
@@ -38,6 +40,8 @@ class WeatherData {
         currentCondition = currentWeather['weather'][0]['id'];
         currentConditionText = currentWeather['weather'][0]['main'];
         currentLocationText = currentWeather['name'];
+        minTemp = currentWeather['main']['temp_min'];
+        maxTemp = currentWeather['main']['temp_max'];
       } catch (e) {
         print(e);
       }

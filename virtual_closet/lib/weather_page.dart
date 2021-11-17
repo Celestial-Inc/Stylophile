@@ -16,10 +16,14 @@ class _WeatherPageState extends State<WeatherPage> {
   late AssetImage backgroundImage;
   late String currentConditionText;
   late String currentLocationText;
+  late int minTemp;
+  late int maxTemp;
 
   void updateDisplayInfo(WeatherData weatherData) {
     setState(() {
       temperature = weatherData.currentTemperature.round();
+      minTemp = weatherData.minTemp.round();
+      maxTemp = weatherData.maxTemp.round();
       currentConditionText = weatherData.currentConditionText;
       currentLocationText = weatherData.currentLocationText;
       WeatherDisplayData weatherDisplayData = weatherData.getWeatherDisplayData();
@@ -30,7 +34,6 @@ class _WeatherPageState extends State<WeatherPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     updateDisplayInfo(widget.weatherData);
@@ -62,6 +65,16 @@ class _WeatherPageState extends State<WeatherPage> {
             Center(
               child: Text(
                 ' $temperature°',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 80.0,
+                  letterSpacing: -5,
+                ),
+              ),
+            ),
+            Center(
+              child: Text(
+                'min: $minTemp° max: $maxTemp°',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 80.0,
