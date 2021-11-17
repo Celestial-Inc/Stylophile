@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:hive/hive.dart';
@@ -106,11 +107,10 @@ class _CalendarPageState extends State<CalendarPage> {
               return ListView.builder(
                 itemCount: value.length,
                 itemBuilder: (context, index) {
-                  return Scaffold(
-                    body: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: getOutfitImages(value[index]),
-                    ),
+                  return CarouselSlider(
+                    items: getOutfitImages(value[index]),
+                    options: CarouselOptions(
+                        autoPlay: true, autoPlayInterval: Duration(seconds: 1)),
                   );
                 },
               );
