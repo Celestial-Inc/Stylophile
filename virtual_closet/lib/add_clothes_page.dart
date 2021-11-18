@@ -62,31 +62,42 @@ class _AddClothesPageState extends State<AddClothesPage> {
   @override
   Widget build(BuildContext context) {
     if (uncroppedImage == null) {
-      return Scaffold(body: Center(child: Text('Loading...')));
+      return Scaffold(body: SafeArea(child: Center(child: Text('Loading...'))));
     }
 
     if (clothingType == null) {
-      return Column(
+      return SafeArea(
+          child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           ListTile(
             title: const Text('Top'),
-            leading: Radio<String>(value: 'shirts', groupValue: clothingType, onChanged: _pickClothing),
+            leading: Radio<String>(
+                value: 'shirts',
+                groupValue: clothingType,
+                onChanged: _pickClothing),
           ),
           ListTile(
             title: const Text('Bottom'),
-            leading: Radio<String>(value: 'bottoms', groupValue: clothingType, onChanged: _pickClothing),
+            leading: Radio<String>(
+                value: 'bottoms',
+                groupValue: clothingType,
+                onChanged: _pickClothing),
           ),
           ListTile(
             title: const Text('Shoe'),
-            leading: Radio<String>(value: 'shoes', groupValue: clothingType, onChanged: _pickClothing),
+            leading: Radio<String>(
+                value: 'shoes',
+                groupValue: clothingType,
+                onChanged: _pickClothing),
           ),
         ],
-      );
+      ));
     }
 
     if (croppedImage == null) {
-      return Scaffold(
+      return SafeArea(
+          child: Scaffold(
         appBar: AppBar(
           backgroundColor: ui.Color.fromARGB(255, 230, 100, 210),
           title: const Text('Image Cropping'),
@@ -126,13 +137,16 @@ class _AddClothesPageState extends State<AddClothesPage> {
             ),
           ],
         ),
-      );
+      ));
     }
 
-    return Column(
+    return SafeArea(
+        child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(child: Text('Thank you, you added this picture:', style: GoogleFonts.notoSans(fontSize: 40))),
+        Container(
+            child: Text('Thank you, you added this picture:',
+                style: GoogleFonts.notoSans(fontSize: 40))),
         Container(
           width: 500,
           height: 500,
@@ -142,6 +156,6 @@ class _AddClothesPageState extends State<AddClothesPage> {
           ),
         ),
       ],
-    );
+    ));
   }
 }

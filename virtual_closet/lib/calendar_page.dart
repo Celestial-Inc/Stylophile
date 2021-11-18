@@ -77,7 +77,8 @@ class _CalendarPageState extends State<CalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+        child: Scaffold(
       body: Column(children: [
         TableCalendar(
           firstDay: kFirstDay,
@@ -118,6 +119,6 @@ class _CalendarPageState extends State<CalendarPage> {
           ),
         )
       ]),
-    );
+    ));
   }
 }

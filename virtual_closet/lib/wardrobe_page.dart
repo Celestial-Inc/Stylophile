@@ -17,7 +17,8 @@ class _WardrobePageState extends State<WardrobePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+        child: Scaffold(
       backgroundColor: Colors.purple[100],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -27,12 +28,17 @@ class _WardrobePageState extends State<WardrobePage> {
           Container(child: buildCarousel(context, 'shoes'), height: 200),
           TextButton(
               onPressed: () {
-                DatePicker.showDatePicker(context, showTitleActions: true, minTime: kFirstDay, maxTime: kLastDay, onConfirm: (date) {
+                DatePicker.showDatePicker(context,
+                    showTitleActions: true,
+                    minTime: kFirstDay,
+                    maxTime: kLastDay, onConfirm: (date) {
                   Box calendarBox = Hive.box('calendar');
-                  if (calendarBox.containsKey(createCalendarKey(date)) == false) {
+                  if (calendarBox.containsKey(createCalendarKey(date)) ==
+                      false) {
                     calendarBox.put(createCalendarKey(date), [currentOutfit]);
                   } else {
-                    List listOfOutfits = calendarBox.get(createCalendarKey(date));
+                    List listOfOutfits =
+                        calendarBox.get(createCalendarKey(date));
                     listOfOutfits.add(currentOutfit);
                     calendarBox.put(createCalendarKey(date), listOfOutfits);
                   }
@@ -44,7 +50,7 @@ class _WardrobePageState extends State<WardrobePage> {
               ))
         ],
       ),
-    );
+    ));
   }
 
   void initState() {
@@ -116,7 +122,8 @@ class _WardrobePageState extends State<WardrobePage> {
 
     // if there are no items then just display a nice text message
     if (itemCount == 0) {
-      return Text('Press Add to add ' + hiveBox.name.toString(), style: TextStyle(fontSize: 40));
+      return Text('Press Add to add ' + hiveBox.name.toString(),
+          style: TextStyle(fontSize: 40));
     }
 
     return Scaffold(
