@@ -88,7 +88,8 @@ class _AddClothesPageState extends State<AddClothesPage> {
     if (croppedImage == null) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Crop Demo'),
+          backgroundColor: ui.Color.fromARGB(255, 230, 100, 210),
+          title: const Text('Image Cropping'),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
