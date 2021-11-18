@@ -110,7 +110,7 @@ class _CalendarPageState extends State<CalendarPage> {
                   return CarouselSlider(
                     items: getOutfitImages(value[index]),
                     options: CarouselOptions(
-                        autoPlay: true, autoPlayInterval: Duration(seconds: 1)),
+                        autoPlay: true, autoPlayInterval: Duration(seconds: 2)),
                   );
                 },
               );

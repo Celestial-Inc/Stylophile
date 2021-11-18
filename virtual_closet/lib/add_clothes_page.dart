@@ -46,7 +46,7 @@ class _AddClothesPageState extends State<AddClothesPage> {
 
     ByteData? data = await cropped.toByteData(format: ui.ImageByteFormat.png);
     if (data != null) {
-      String newCroppedImage = base64Encode(Uint8List.view(data!.buffer));
+      String newCroppedImage = base64Encode(Uint8List.view(data.buffer));
 
       Random random = Random();
       int randomNumber = random.nextInt(1000000);
