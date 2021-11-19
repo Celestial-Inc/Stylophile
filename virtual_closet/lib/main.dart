@@ -7,46 +7,21 @@ import 'package:virtual_closet/add_clothes_page.dart';
 import 'package:virtual_closet/calendar_page.dart';
 import 'package:virtual_closet/wardrobe_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:splashscreen/splashscreen.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 Future<void> main() async {
-  initializeHive()
-      .then((_) => initializeDateFormatting().then((_) => runApp(MyApp())));
+  initializeHive().then((_) => initializeDateFormatting().then((_) => runApp(MyApp())));
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-        statusBarColor: Colors.purpleAccent,
-        systemNavigationBarColor: Colors.purpleAccent),
+    SystemUiOverlayStyle(statusBarColor: Colors.purpleAccent, systemNavigationBarColor: Colors.purpleAccent),
   );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Stylophile',
       home: PageFrame(),
     );
-  }
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  Widget build(BuildContext context) {
-    return new SplashScreen(
-        seconds: 5,
-        navigateAfterSeconds: new HomePage(),
-        title:
-            new Text('Stylophile', style: GoogleFonts.lobster(fontSize: 20.0)),
-        image: Image.asset('assets/images/icon.png'),
-        gradientBackground: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xb71e98), Color(0x771ac5)]),
-        styleTextUnderTheLoader: new TextStyle(),
-        photoSize: 100.0,
-        loaderColor: Colors.pink[800]);
   }
 }
 
@@ -57,13 +32,7 @@ class PageFrame extends StatefulWidget {
 
 class _PageFrameState extends State<PageFrame> {
   int _currentIndex = 0; // default selected navbar item is "Home"
-  List _screens = [
-    HomePage(),
-    WardrobePage(),
-    AddClothesPage(),
-    CalendarPage(),
-    WeatherLoaderPage()
-  ];
+  List _screens = [HomePage(), WardrobePage(), AddClothesPage(), CalendarPage(), WeatherLoaderPage()];
 
   @override
   Widget build(BuildContext context) {
