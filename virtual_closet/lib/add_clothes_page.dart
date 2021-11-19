@@ -148,8 +148,8 @@ class _AddClothesPageState extends State<AddClothesPage> {
             child: Text('Thank you, you added this picture:',
                 style: GoogleFonts.notoSans(fontSize: 40))),
         Container(
-          width: 500,
-          height: 500,
+          width: 400,
+          height: 400,
           child: Image.memory(
             base64Decode(croppedImage!),
             fit: BoxFit.contain,

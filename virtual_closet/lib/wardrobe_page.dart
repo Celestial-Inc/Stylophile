@@ -23,9 +23,9 @@ class _WardrobePageState extends State<WardrobePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Container(child: buildCarousel(context, 'shirts'), height: 200),
-          Container(child: buildCarousel(context, 'bottoms'), height: 200),
-          Container(child: buildCarousel(context, 'shoes'), height: 200),
+          Container(child: buildCarousel(context, 'shirts'), height: 150),
+          Container(child: buildCarousel(context, 'bottoms'), height: 150),
+          Container(child: buildCarousel(context, 'shoes'), height: 150),
           TextButton(
               onPressed: () {
                 DatePicker.showDatePicker(context,
@@ -108,7 +108,6 @@ class _WardrobePageState extends State<WardrobePage> {
     String imageAsString = hiveBox.getAt(index);
     var container = Container(
       margin: EdgeInsets.symmetric(horizontal: 8),
-      color: Colors.pink[200],
       child: Image.memory(base64Decode(imageAsString), fit: BoxFit.cover),
     );
     return container;
@@ -126,7 +125,8 @@ class _WardrobePageState extends State<WardrobePage> {
           style: TextStyle(fontSize: 40));
     }
 
-    return Scaffold(
+    return SafeArea(
+        child: Scaffold(
       backgroundColor: Colors.purple[100],
       body: Center(
         child: CarouselSlider.builder(
@@ -153,6 +153,6 @@ class _WardrobePageState extends State<WardrobePage> {
           },
         ),
       ),
-    );
+    ));
   }
 }
