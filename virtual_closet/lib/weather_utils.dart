@@ -54,37 +54,37 @@ class WeatherData {
     if (currentCondition < 300) {
       return WeatherDisplayData(
         weatherIcon: kStormIcon,
-        weatherImage: AssetImage('assets/images/sunny.png'),
+        weatherImage: AssetImage('assets/images/storm.jpg'),
       );
     } else if (currentCondition < 500) {
       return WeatherDisplayData(
         weatherIcon: kDrizzleIcon,
-        weatherImage: AssetImage('assets/images/sunny.png'),
+        weatherImage: AssetImage('assets/images/drizzle.jpg'),
       );
     } else if (currentCondition < 600) {
       return WeatherDisplayData(
         weatherIcon: kRainIcon,
-        weatherImage: AssetImage('assets/images/sunny.png'),
+        weatherImage: AssetImage('assets/images/rain.jpg'),
       );
     } else if (currentCondition < 700) {
       return WeatherDisplayData(
         weatherIcon: kSnowIcon,
-        weatherImage: AssetImage('assets/images/sunny.png'),
+        weatherImage: AssetImage('assets/images/snow.jpg'),
       );
     } else if (currentCondition < 800) {
       return WeatherDisplayData(
         weatherIcon: kLavastormIcon,
-        weatherImage: AssetImage('assets/images/sunny.png'),
+        weatherImage: AssetImage('assets/images/lavastorm.jpg'),
       );
     } else if (currentCondition == 800) {
       return WeatherDisplayData(
         weatherIcon: kSunIcon,
-        weatherImage: AssetImage('assets/images/sunny.png'),
+        weatherImage: AssetImage('assets/images/clear.jpg'),
       );
     } else {
       return WeatherDisplayData(
         weatherIcon: kCloudIcon,
-        weatherImage: AssetImage('assets/images/cloud.png'),
+        weatherImage: AssetImage('assets/images/clouds.jpg'),
       );
     }
   }

@@ -26,8 +26,7 @@ class _WeatherPageState extends State<WeatherPage> {
       maxTemp = weatherData.maxTemp.round();
       currentConditionText = weatherData.currentConditionText;
       currentLocationText = weatherData.currentLocationText;
-      WeatherDisplayData weatherDisplayData =
-          weatherData.getWeatherDisplayData();
+      WeatherDisplayData weatherDisplayData = weatherData.getWeatherDisplayData();
       backgroundImage = weatherDisplayData.weatherImage!;
       weatherDisplayIcon = weatherDisplayData.weatherIcon!;
     });
@@ -76,16 +75,6 @@ class _WeatherPageState extends State<WeatherPage> {
             ),
             Center(
               child: Text(
-                'min: $minTemp° max: $maxTemp°',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 80.0,
-                  letterSpacing: -5,
-                ),
-              ),
-            ),
-            Center(
-              child: Text(
                 currentConditionText,
                 style: TextStyle(
                   color: Colors.white,
@@ -97,6 +86,16 @@ class _WeatherPageState extends State<WeatherPage> {
             Center(
               child: Text(
                 currentLocationText,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  letterSpacing: 0,
+                ),
+              ),
+            ),
+            Center(
+              child: Text(
+                'min: $minTemp° max: $maxTemp°',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
