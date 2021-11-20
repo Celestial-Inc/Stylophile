@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:virtual_closet/outfit.dart';
+import 'package:flutter_simple_image_utils/flutter_simple_image_utils.dart';
 
 final kToday = DateTime.now();
 final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
@@ -22,17 +23,20 @@ Future<void> initializeHive() async {
 
   Box shirtsBox = Hive.box('shirts');
   if (shirtsBox.isEmpty) {
-    shirtsBox.put('shirt1', await convertImageToString('assets/images/noClothes.png'));
+    shirtsBox.put('shirt1',
+        await convertImageAssetToString('assets/images/noClothes.png'));
   }
 
   Box bottomsBox = Hive.box('bottoms');
   if (bottomsBox.isEmpty) {
-    bottomsBox.put('bottoms1', await convertImageToString('assets/images/noClothes.png'));
+    bottomsBox.put('bottoms1',
+        await convertImageAssetToString('assets/images/noClothes.png'));
   }
 
   Box shoesBox = Hive.box('shoes');
   if (shoesBox.isEmpty) {
-    shoesBox.put('shoes1', await convertImageToString('assets/images/noClothes.png'));
+    shoesBox.put('shoes1',
+        await convertImageAssetToString('assets/images/noClothes.png'));
   }
 
   Outfit outfit1 = Outfit('shirt1', 'bottoms2', 'shoes3');
@@ -46,11 +50,9 @@ Future<void> initializeHive() async {
 }
 
 String createCalendarKey(DateTime date) {
-  return date.year.toString() + '-' + date.month.toString() + '-' + date.day.toString();
-}
-
-Future<String> convertImageToString(String imagePath) async {
-  ByteData bytes = await rootBundle.load(imagePath);
-  var buffer = bytes.buffer;
-  return base64.encode(Uint8List.view(buffer));
+  return date.year.toString() +
+      '-' +
+      date.month.toString() +
+      '-' +
+      date.day.toString();
 }

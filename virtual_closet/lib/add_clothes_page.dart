@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_simple_image_utils/flutter_simple_image_utils.dart';
 
 class AddClothesPage extends StatefulWidget {
   @override
@@ -28,9 +29,9 @@ class _AddClothesPageState extends State<AddClothesPage> {
   void _pickImage() async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    List<int> imageBytes = await image!.readAsBytes();
+    String result = await convertImageFileToString(image!);
     setState(() {
-      uncroppedImage = base64Encode(imageBytes);
+      uncroppedImage = result;
     });
   }
 
@@ -44,10 +45,8 @@ class _AddClothesPageState extends State<AddClothesPage> {
     final pixelRatio = MediaQuery.of(context).devicePixelRatio;
     ui.Image cropped = await controller.crop(pixelRatio: pixelRatio);
 
-    ByteData? data = await cropped.toByteData(format: ui.ImageByteFormat.png);
-    if (data != null) {
-      String newCroppedImage = base64Encode(Uint8List.view(data.buffer));
-
+    String? newCroppedImage = await convertUiImageToString(cropped);
+    if (newCroppedImage != null) {
       Random random = Random();
       int randomNumber = random.nextInt(1000000);
       Box hiveBox = Hive.box(clothingType!);
