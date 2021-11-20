@@ -38,15 +38,6 @@ Future<void> initializeHive() async {
     shoesBox.put('shoes1',
         await convertImageAssetToString('assets/images/noClothes.png'));
   }
-
-  Outfit outfit1 = Outfit('shirt1', 'bottoms2', 'shoes3');
-  Outfit outfit2 = Outfit('shirt3', 'bottoms1', 'shoes3');
-
-  Box calendarBox = Hive.box('calendar');
-  if (calendarBox.isEmpty) {
-    calendarBox.put(createCalendarKey(today), [outfit2]);
-    calendarBox.put(createCalendarKey(tomorrow), [outfit1, outfit2]);
-  }
 }
 
 String createCalendarKey(DateTime date) {
