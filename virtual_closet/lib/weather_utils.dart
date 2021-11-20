@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:virtual_closet/location.dart';
@@ -27,6 +29,14 @@ class WeatherData {
   Future<void> getCurrentTemperature() async {
     double longitude = locationData.longitude ?? 0.0;
     double latitude = locationData.latitude ?? 0.0;
+    if (kDebugMode) {
+      Random random = Random();
+      int randomNumber1 = random.nextInt(180);
+      int randomNumber2 = random.nextInt(360);
+
+      latitude = randomNumber1 - 90;
+      longitude = randomNumber2 - 180;
+    }
 
     Response response =
         await get(Uri.parse('http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric'));
