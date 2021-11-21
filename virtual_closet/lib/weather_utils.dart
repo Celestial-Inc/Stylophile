@@ -38,8 +38,8 @@ class WeatherData {
       longitude = randomNumber2 - 180;
     }
 
-    Response response =
-        await get(Uri.parse('http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric'));
+    Response response = await get(Uri.parse(
+        'http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric'));
 
     if (response.statusCode == 200) {
       String data = response.body;
