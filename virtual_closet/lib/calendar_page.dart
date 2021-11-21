@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:hive/hive.dart';
 import 'package:virtual_closet/utils.dart';
@@ -16,13 +17,14 @@ class _CalendarPageState extends State<CalendarPage> {
   late final ValueNotifier<List<dynamic>> _selectedEvents;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+  bool _forceRefresh = false;
 
   @override
   void initState() {
     super.initState();
 
     _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+    _selectedEvents = ValueNotifier(_getOutfitsForDay(_selectedDay!));
   }
 
   @override
@@ -31,7 +33,7 @@ class _CalendarPageState extends State<CalendarPage> {
     super.dispose();
   }
 
-  List<dynamic> _getEventsForDay(DateTime date) {
+  List<dynamic> _getOutfitsForDay(DateTime date) {
     var box = Hive.box('calendar');
     var outfitList = box.get(createCalendarKey(date));
     if (outfitList == null) {
@@ -48,7 +50,7 @@ class _CalendarPageState extends State<CalendarPage> {
         _focusedDay = focusedDay;
       });
 
-      _selectedEvents.value = _getEventsForDay(selectedDay);
+      _selectedEvents.value = _getOutfitsForDay(selectedDay);
     }
   }
 
@@ -61,11 +63,45 @@ class _CalendarPageState extends State<CalendarPage> {
     String? bottomImageAsString = bottomsBox.get(myOutfit.bottom);
     String? shoesImageAsString = shoesBox.get(myOutfit.shoe);
 
-    return [
-      tryToMakeImage(shirtImageAsString),
-      tryToMakeImage(bottomImageAsString),
-      tryToMakeImage(shoesImageAsString),
-    ];
+    return [tryToMakeImage(shirtImageAsString), tryToMakeImage(bottomImageAsString), tryToMakeImage(shoesImageAsString), makeDeleteButton(myOutfit)];
+  }
+
+  Widget makeDeleteButton(Outfit myOutfit) {
+    Icon trashIcon = const Icon(
+      FontAwesomeIcons.trashAlt,
+      size: 60.0,
+      color: Colors.purple,
+    );
+    return IconButton(
+      icon: trashIcon,
+      onPressed: () => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Warning!'),
+          content: const Text('Do you wish to delete this Outfit?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => {Navigator.pop(context, 'No')},
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, 'Yes');
+                var box = Hive.box('calendar');
+                List<dynamic> outfitList = box.get(createCalendarKey(_selectedDay!));
+                outfitList.remove(myOutfit);
+                box.put(createCalendarKey(_selectedDay!), outfitList);
+                setState(() {
+                  // set forceRefresh to the opposite of whatever it is. It just flips between true and false.
+                  _forceRefresh = !_forceRefresh;
+                });
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget tryToMakeImage(String? base64ImageString) {
@@ -85,7 +121,7 @@ class _CalendarPageState extends State<CalendarPage> {
           lastDay: kLastDay,
           focusedDay: _focusedDay,
           calendarFormat: CalendarFormat.month,
-          eventLoader: _getEventsForDay,
+          eventLoader: _getOutfitsForDay,
           selectedDayPredicate: (day) {
             // Use `selectedDayPredicate` to determine which day is currently selected.
             // If this returns true, then `day` will be marked as selected.
@@ -110,8 +146,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 itemBuilder: (context, index) {
                   return CarouselSlider(
                     items: getOutfitImages(value[index]),
-                    options: CarouselOptions(
-                        autoPlay: true, autoPlayInterval: Duration(seconds: 2)),
+                    options: CarouselOptions(autoPlay: true, autoPlayInterval: Duration(seconds: 2)),
                   );
                 },
               );
