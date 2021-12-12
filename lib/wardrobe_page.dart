@@ -3,8 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hive/hive.dart';
 import 'dart:convert';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:virtual_closet/outfit.dart';
-import 'package:virtual_closet/utils.dart';
+import 'package:Stylophile/outfit.dart';
+import 'package:Stylophile/utils.dart';
 
 class WardrobePage extends StatefulWidget {
   @override

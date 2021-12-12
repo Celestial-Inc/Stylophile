@@ -1,4 +1,4 @@
-package com.example.virtual_closet
+package com.example.Stylophile
 
 import io.flutter.embedding.android.FlutterActivity
 

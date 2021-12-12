@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:virtual_closet/location.dart';
-import 'package:virtual_closet/weather_icons.dart';
+import 'package:Stylophile/location.dart';
+import 'package:Stylophile/weather_icons.dart';
 
 class WeatherDisplayData {
   Icon? weatherIcon;

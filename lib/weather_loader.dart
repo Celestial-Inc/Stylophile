@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:virtual_closet/weather_page.dart';
-import 'package:virtual_closet/location.dart';
-import 'package:virtual_closet/weather_utils.dart';
+import 'package:Stylophile/weather_page.dart';
+import 'package:Stylophile/location.dart';
+import 'package:Stylophile/weather_utils.dart';
 
 class WeatherLoaderPage extends StatefulWidget {
   @override
@@ -30,7 +30,8 @@ class _WeatherLoaderPageState extends State<WeatherLoaderPage> {
     WeatherData weatherData = WeatherData(locationData: locationData);
     await weatherData.getCurrentTemperature();
 
-    if (weatherData.currentTemperature == null || weatherData.currentCondition == null) {
+    if (weatherData.currentTemperature == null ||
+        weatherData.currentCondition == null) {
       // todo: Handle no weather
     }
 

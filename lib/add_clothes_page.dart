@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_simple_image_utils/flutter_simple_image_utils.dart';
-import 'package:virtual_closet/weather_utils.dart';
+import 'package:Stylophile/weather_utils.dart';
 
 class AddClothesPage extends StatefulWidget {
   @override
@@ -86,15 +86,24 @@ class _AddClothesPageState extends State<AddClothesPage> {
         children: <Widget>[
           ListTile(
             title: const Text('Top'),
-            leading: Radio<String>(value: 'shirts', groupValue: clothingType, onChanged: _pickClothing),
+            leading: Radio<String>(
+                value: 'shirts',
+                groupValue: clothingType,
+                onChanged: _pickClothing),
           ),
           ListTile(
             title: const Text('Bottom'),
-            leading: Radio<String>(value: 'bottoms', groupValue: clothingType, onChanged: _pickClothing),
+            leading: Radio<String>(
+                value: 'bottoms',
+                groupValue: clothingType,
+                onChanged: _pickClothing),
           ),
           ListTile(
             title: const Text('Shoe'),
-            leading: Radio<String>(value: 'shoes', groupValue: clothingType, onChanged: _pickClothing),
+            leading: Radio<String>(
+                value: 'shoes',
+                groupValue: clothingType,
+                onChanged: _pickClothing),
           ),
         ],
       ));
@@ -149,7 +158,9 @@ class _AddClothesPageState extends State<AddClothesPage> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(child: Text('Thank you, you added this picture:', style: GoogleFonts.notoSans(fontSize: 40))),
+        Container(
+            child: Text('Thank you, you added this picture:',
+                style: GoogleFonts.notoSans(fontSize: 40))),
         Container(
           width: 400,
           height: 400,

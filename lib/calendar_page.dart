@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:hive/hive.dart';
-import 'package:virtual_closet/utils.dart';
+import 'package:Stylophile/utils.dart';
 import 'dart:convert';
 
 import 'outfit.dart';
@@ -63,7 +63,12 @@ class _CalendarPageState extends State<CalendarPage> {
     String? bottomImageAsString = bottomsBox.get(myOutfit.bottom);
     String? shoesImageAsString = shoesBox.get(myOutfit.shoe);
 
-    return [tryToMakeImage(shirtImageAsString), tryToMakeImage(bottomImageAsString), tryToMakeImage(shoesImageAsString), makeDeleteButton(myOutfit)];
+    return [
+      tryToMakeImage(shirtImageAsString),
+      tryToMakeImage(bottomImageAsString),
+      tryToMakeImage(shoesImageAsString),
+      makeDeleteButton(myOutfit)
+    ];
   }
 
   Widget makeDeleteButton(Outfit myOutfit) {
@@ -88,7 +93,8 @@ class _CalendarPageState extends State<CalendarPage> {
               onPressed: () {
                 Navigator.pop(context, 'Yes');
                 var box = Hive.box('calendar');
-                List<dynamic> outfitList = box.get(createCalendarKey(_selectedDay!));
+                List<dynamic> outfitList =
+                    box.get(createCalendarKey(_selectedDay!));
                 outfitList.remove(myOutfit);
                 box.put(createCalendarKey(_selectedDay!), outfitList);
                 setState(() {
@@ -146,7 +152,8 @@ class _CalendarPageState extends State<CalendarPage> {
                 itemBuilder: (context, index) {
                   return CarouselSlider(
                     items: getOutfitImages(value[index]),
-                    options: CarouselOptions(autoPlay: true, autoPlayInterval: Duration(seconds: 2)),
+                    options: CarouselOptions(
+                        autoPlay: true, autoPlayInterval: Duration(seconds: 2)),
                   );
                 },
               );

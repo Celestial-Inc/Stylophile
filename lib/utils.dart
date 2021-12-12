@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:virtual_closet/outfit.dart';
+import 'package:Stylophile/outfit.dart';
 import 'package:flutter_simple_image_utils/flutter_simple_image_utils.dart';
 
 final kToday = DateTime.now();

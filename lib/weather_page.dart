@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_closet/weather_utils.dart';
+import 'package:Stylophile/weather_utils.dart';
 
 class WeatherPage extends StatefulWidget {
   WeatherPage({required this.weatherData});
@@ -26,7 +26,8 @@ class _WeatherPageState extends State<WeatherPage> {
       maxTemp = weatherData.maxTemp.round();
       currentConditionText = weatherData.currentConditionText;
       currentLocationText = weatherData.currentLocationText;
-      WeatherDisplayData weatherDisplayData = weatherData.getWeatherDisplayData();
+      WeatherDisplayData weatherDisplayData =
+          weatherData.getWeatherDisplayData();
       backgroundImage = weatherDisplayData.weatherImage!;
       weatherDisplayIcon = weatherDisplayData.weatherIcon!;
     });
