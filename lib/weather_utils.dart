@@ -1,101 +1,78 @@
 import 'dart:convert';
-import 'dart:math';
-import 'package:flutter/foundation.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:Stylophile/location.dart';
+import 'package:Stylophile/location_helper.dart';
 import 'package:Stylophile/weather_icons.dart';
 
-class WeatherDisplayData {
-  Icon? weatherIcon;
-  AssetImage? weatherImage;
-
-  WeatherDisplayData({@required this.weatherIcon, @required this.weatherImage});
-}
+/// This is the API Key that we use for OpenWeather calls
+const String _apiKey = 'b9e5caa180cca64a2fbede5f5abd8c7f';
 
 class WeatherData {
-  WeatherData({required this.locationData});
+  late Icon weatherIcon;
+  late AssetImage weatherImage;
+  late double currentTemperature;
+  late double minTemp;
+  late double maxTemp;
+  late int currentCondition;
+  late String currentConditionText;
+  late String currentLocationText;
+}
 
-  LocationHelper locationData;
-  double currentTemperature = 0.0;
-  double minTemp = 0.0;
-  double maxTemp = 0.0;
-  int currentCondition = 0;
-  String currentConditionText = '';
-  String currentLocationText = '';
+Future<WeatherData> getWeatherData() async {
+  LocationHelper locationHelper = LocationHelper();
 
-  final String apiKey = 'b9e5caa180cca64a2fbede5f5abd8c7f';
+  double longitude = await locationHelper.getLongitude();
+  double latitude = await locationHelper.getLatitude();
 
-  Future<void> getCurrentTemperature() async {
-    double longitude = locationData.longitude ?? 0.0;
-    double latitude = locationData.latitude ?? 0.0;
-    //if (kDebugMode) {
-    //  Random random = Random();
-    //  int randomNumber1 = random.nextInt(180);
-    //  int randomNumber2 = random.nextInt(360);
-    //  latitude = randomNumber1 - 90;
-    //  longitude = randomNumber2 - 180;
-    //}
+  Response response =
+      await get(Uri.parse('http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${_apiKey}&units=metric'));
 
-    Response response = await get(Uri.parse(
-        'http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric'));
-
-    if (response.statusCode == 200) {
+  if (response.statusCode == 200) {
+    try {
       String data = response.body;
       var currentWeather = jsonDecode(data);
-
-      try {
-        currentTemperature = currentWeather['main']['temp'];
-        currentCondition = currentWeather['weather'][0]['id'];
-        currentConditionText = currentWeather['weather'][0]['main'];
-        currentLocationText = currentWeather['name'];
-        minTemp = currentWeather['main']['temp_min'];
-        maxTemp = currentWeather['main']['temp_max'];
-      } catch (e) {
-        print(e);
-      }
-    } else {
-      print('Could not fetch temperature!');
+      WeatherData result = WeatherData();
+      result.currentTemperature = currentWeather['main']['temp'];
+      result.currentCondition = currentWeather['weather'][0]['id'];
+      result.currentConditionText = currentWeather['weather'][0]['main'];
+      result.currentLocationText = currentWeather['name'];
+      result.minTemp = currentWeather['main']['temp_min'];
+      result.maxTemp = currentWeather['main']['temp_max'];
+      _fillInWeatherIcons(result);
+      return result;
+    } catch (e) {
+      stderr.writeln('WARNING: Stylophile could not read response from openweathermap.org');
+      throw Exception();
     }
+  } else {
+    stderr.writeln('WARNING: Stylophile could not contact openweathermap.org. Response code ${response.statusCode}.');
+    throw Exception();
   }
+}
 
-  WeatherDisplayData getWeatherDisplayData() {
-    if (currentCondition < 300) {
-      return WeatherDisplayData(
-        weatherIcon: kStormIcon,
-        weatherImage: AssetImage('assets/images/storm.jpg'),
-      );
-    } else if (currentCondition < 500) {
-      return WeatherDisplayData(
-        weatherIcon: kDrizzleIcon,
-        weatherImage: AssetImage('assets/images/drizzle.jpg'),
-      );
-    } else if (currentCondition < 600) {
-      return WeatherDisplayData(
-        weatherIcon: kRainIcon,
-        weatherImage: AssetImage('assets/images/rain.jpg'),
-      );
-    } else if (currentCondition < 700) {
-      return WeatherDisplayData(
-        weatherIcon: kSnowIcon,
-        weatherImage: AssetImage('assets/images/snow.jpg'),
-      );
-    } else if (currentCondition < 800) {
-      return WeatherDisplayData(
-        weatherIcon: kLavastormIcon,
-        weatherImage: AssetImage('assets/images/lavastorm.jpg'),
-      );
-    } else if (currentCondition == 800) {
-      return WeatherDisplayData(
-        weatherIcon: kSunIcon,
-        weatherImage: AssetImage('assets/images/clear.jpg'),
-      );
-    } else {
-      return WeatherDisplayData(
-        weatherIcon: kCloudIcon,
-        weatherImage: AssetImage('assets/images/clouds.jpg'),
-      );
-    }
+void _fillInWeatherIcons(WeatherData weatherData) {
+  if (weatherData.currentCondition < 300) {
+    weatherData.weatherIcon = kStormIcon;
+    weatherData.weatherImage = const AssetImage('assets/images/storm.jpg');
+  } else if (weatherData.currentCondition < 500) {
+    weatherData.weatherIcon = kDrizzleIcon;
+    weatherData.weatherImage = const AssetImage('assets/images/drizzle.jpg');
+  } else if (weatherData.currentCondition < 600) {
+    weatherData.weatherIcon = kRainIcon;
+    weatherData.weatherImage = const AssetImage('assets/images/rain.jpg');
+  } else if (weatherData.currentCondition < 700) {
+    weatherData.weatherIcon = kSnowIcon;
+    weatherData.weatherImage = const AssetImage('assets/images/snow.jpg');
+  } else if (weatherData.currentCondition < 800) {
+    weatherData.weatherIcon = kLavastormIcon;
+    weatherData.weatherImage = const AssetImage('assets/images/lavastorm.jpg');
+  } else if (weatherData.currentCondition == 800) {
+    weatherData.weatherIcon = kSunIcon;
+    weatherData.weatherImage = const AssetImage('assets/images/clear.jpg');
+  } else {
+    weatherData.weatherIcon = kCloudIcon;
+    weatherData.weatherImage = const AssetImage('assets/images/clouds.jpg');
   }
 }
 

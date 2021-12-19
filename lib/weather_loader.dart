@@ -1,74 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:Stylophile/weather_page.dart';
-import 'package:Stylophile/location.dart';
 import 'package:Stylophile/weather_utils.dart';
 
+// ignore: use_key_in_widget_constructors
 class WeatherLoaderPage extends StatefulWidget {
   @override
   _WeatherLoaderPageState createState() => _WeatherLoaderPageState();
 }
 
 class _WeatherLoaderPageState extends State<WeatherLoaderPage> {
-  late LocationHelper locationData;
   WeatherData? currentWeather;
-
-  Future<void> getLocationData() async {
-    locationData = LocationHelper();
-    await locationData.getCurrentLocation();
-
-    if (locationData.latitude == null || locationData.longitude == null) {
-      // todo: Handle no location
-    }
-  }
-
-  void getWeatherData() async {
-    // Fetch the location
-    await getLocationData();
-
-    // Fetch the current weather
-    WeatherData weatherData = WeatherData(locationData: locationData);
-    await weatherData.getCurrentTemperature();
-
-    if (weatherData.currentTemperature == null ||
-        weatherData.currentCondition == null) {
-      // todo: Handle no weather
-    }
-
-    setState(() {
-      currentWeather = weatherData;
-    });
-  }
+  bool weatherNotAvailable = false;
 
   @override
   void initState() {
     super.initState();
-    getWeatherData();
+    lookupWeatherData();
+  }
+
+  Future<void> lookupWeatherData() async {
+    try {
+      WeatherData weather = await getWeatherData();
+      setState(() {
+        currentWeather = weather;
+      });
+    } catch (e) {
+      setState(() {
+        weatherNotAvailable = true;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (currentWeather == null) {
-      return new Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: kLinearGradient,
-          ),
-          child: Center(
-            child: SpinKitRipple(
-              color: Colors.white,
-              size: 150.0,
-              duration: Duration(milliseconds: 1200),
-            ),
-          ),
-        ),
-      );
-    } else {
-      return new Scaffold(
-        body: WeatherPage(
-          weatherData: currentWeather!,
-        ),
-      );
+    if (weatherNotAvailable) {
+      return buildWeatherMissingMessage();
     }
+
+    if (currentWeather == null) {
+      return buildLoadingIndicator();
+    }
+
+    return buildWeatherPage();
+  }
+
+  Widget buildWeatherMissingMessage() {
+    return const Scaffold(
+      body: Text("Could not find weather"),
+    );
+  }
+
+  Widget buildWeatherPage() {
+    return Scaffold(
+      body: WeatherPage(
+        weatherData: currentWeather!,
+      ),
+    );
+  }
+
+  Widget buildLoadingIndicator() {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: kLinearGradient,
+        ),
+        child: const Center(
+          child: SpinKitRipple(
+            color: Colors.white,
+            size: 150.0,
+            duration: Duration(milliseconds: 1200),
+          ),
+        ),
+      ),
+    );
   }
 }
