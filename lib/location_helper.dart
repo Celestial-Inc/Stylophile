@@ -26,7 +26,8 @@ class LocationHelper {
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
-        stderr.writeln('WARNING: Stylophile could not enable location services.');
+        stderr
+            .writeln('WARNING: Stylophile could not enable location services.');
         throw Exception();
       }
     }
@@ -35,7 +36,8 @@ class LocationHelper {
     if (_permissionGranted == PermissionStatus.denied) {
       _permissionGranted = await location.requestPermission();
       if (_permissionGranted != PermissionStatus.granted) {
-        stderr.writeln('WARNING: Stylophile is not given permissions for location services.');
+        stderr.writeln(
+            'WARNING: Stylophile is not given permissions for location services.');
         throw Exception();
       }
     }
@@ -46,7 +48,8 @@ class LocationHelper {
       _latitude = _locationData.latitude;
       _longitude = _locationData.longitude;
     } catch (e) {
-      stderr.writeln('WARNING: Stylophile is not able to find current location.');
+      stderr
+          .writeln('WARNING: Stylophile is not able to find current location.');
       throw Exception();
     }
   }
