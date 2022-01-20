@@ -12,16 +12,18 @@ Future<void> main() async {
   initializeHive()
       .then((_) => initializeDateFormatting().then((_) => runApp(MyApp())));
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
+    const SystemUiOverlayStyle(
         statusBarColor: Colors.purpleAccent,
         systemNavigationBarColor: Colors.purpleAccent),
   );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Stylophile',
       home: PageFrame(),
@@ -30,18 +32,20 @@ class MyApp extends StatelessWidget {
 }
 
 class PageFrame extends StatefulWidget {
+  const PageFrame({Key? key}) : super(key: key);
+
   @override
   _PageFrameState createState() => _PageFrameState();
 }
 
 class _PageFrameState extends State<PageFrame> {
   int _currentIndex = 0; // default selected navbar item is "Home"
-  List _screens = [
-    HomePage(),
-    WardrobePage(),
+  final List _screens = [
+    const HomePage(),
+    const WardrobePage(),
     AddClothesPage(),
-    CalendarPage(),
-    WeatherLoaderPage()
+    const CalendarPage(),
+    const WeatherLoaderPage()
   ];
 
   @override
@@ -63,23 +67,23 @@ class _PageFrameState extends State<PageFrame> {
           },
           items: const [
             BottomNavigationBarItem(
-              title: Text('Home'),
+              label: 'Home',
               icon: Icon(Icons.home),
             ),
             BottomNavigationBarItem(
-              title: Text('Wardrobe'),
+              label: 'Wardrobe',
               icon: Icon(Icons.checkroom),
             ),
             BottomNavigationBarItem(
-              title: Text('Add'),
+              label: 'Add',
               icon: Icon(Icons.add),
             ),
             BottomNavigationBarItem(
-              title: Text('Calendar'),
+              label: 'Calendar',
               icon: Icon(Icons.date_range),
             ),
             BottomNavigationBarItem(
-              title: Text('Weather'),
+              label: 'Weather',
               icon: Icon(Icons.cloud),
             ),
           ],
