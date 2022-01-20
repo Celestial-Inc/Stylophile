@@ -9,6 +9,8 @@ import 'dart:convert';
 import 'outfit.dart';
 
 class CalendarPage extends StatefulWidget {
+  const CalendarPage({Key? key}) : super(key: key);
+
   @override
   _CalendarPageState createState() => _CalendarPageState();
 }

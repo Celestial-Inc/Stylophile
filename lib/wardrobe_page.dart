@@ -7,6 +7,8 @@ import 'package:Stylophile/outfit.dart';
 import 'package:Stylophile/utils.dart';
 
 class WardrobePage extends StatefulWidget {
+  const WardrobePage({Key? key}) : super(key: key);
+
   @override
   _WardrobePageState createState() => _WardrobePageState();
 }
@@ -53,7 +55,7 @@ class _WardrobePageState extends State<WardrobePage> {
                   }
                 }, currentTime: DateTime.now());
               },
-              child: Text(
+              child: const Text(
                 'Share to Calendar',
                 style: TextStyle(color: Colors.purple),
               ))
