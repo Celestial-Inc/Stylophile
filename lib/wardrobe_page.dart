@@ -118,7 +118,7 @@ class _WardrobePageState extends State<WardrobePage> {
   Widget buildImageFromAsset(Box hiveBox, int index) {
     String imageAsString = hiveBox.getAt(index);
     var container = Container(
-      margin: EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       child: Image.memory(base64Decode(imageAsString), fit: BoxFit.cover),
     );
     return container;

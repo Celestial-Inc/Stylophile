@@ -10,7 +10,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
   initializeHive()
-      .then((_) => initializeDateFormatting().then((_) => runApp(MyApp())));
+      .then((_) => initializeDateFormatting().then((_) => runApp(const MyApp())));
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
         statusBarColor: Colors.purpleAccent,
@@ -50,12 +50,11 @@ class _PageFrameState extends State<PageFrame> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         body: _screens[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Color(0xFFDC67F7),
+          backgroundColor: const Color(0xFFDC67F7),
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white.withOpacity(.60),
           currentIndex: _currentIndex,
@@ -87,8 +86,7 @@ class _PageFrameState extends State<PageFrame> {
               icon: Icon(Icons.cloud),
             ),
           ],
-        ),
-      ),
+        )
     );
   }
 }
