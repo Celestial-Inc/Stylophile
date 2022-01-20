@@ -124,11 +124,13 @@ class _CalendarPageState extends State<CalendarPage> {
       body: Column(children: [
         TableCalendar(
           headerStyle: const HeaderStyle(
+            titleCentered: true,
             formatButtonVisible: false
           ),
           firstDay: kFirstDay,
           lastDay: kLastDay,
           focusedDay: _focusedDay,
+          calendarFormat: CalendarFormat.month,
           eventLoader: _getOutfitsForDay,
           selectedDayPredicate: (day) {
             // Use `selectedDayPredicate` to determine which day is currently selected.
