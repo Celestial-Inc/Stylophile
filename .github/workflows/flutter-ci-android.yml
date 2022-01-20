@@ -4,9 +4,6 @@ name: Flutter CI
 
 on:
   push:
-    branches:
-    - master
-    - ci-pr
     
 # on: push    # Default will running for every branch.
     
