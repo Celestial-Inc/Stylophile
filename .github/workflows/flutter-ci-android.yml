@@ -22,11 +22,20 @@ jobs:
       with:
         java-version: '12.x'
     
+    - name: Flutter action
     # Setup the flutter environment.
-    - uses: subosito/flutter-action@v1
-      with:
-        channel: 'beta' # 'dev', 'alpha', default to: 'stable'
-        # flutter-version: '1.12.x' # you can also specify exact version of flutter
+      uses: subosito/flutter-action@v2.2.0
+      #with:
+        # The Flutter version to make available on the path
+        # flutter-version:  # optional
+        # The Flutter build release channel
+        # channel: # optional, default is stable
+        # Cache the Flutter SDK
+        # cache: # optional
+        # Identifier for the Flutter SDK cache
+        # cache-key: # optional, default is flutter
+        # Flutter SDK cache path
+        # cache-path: # optional, default is ${{ runner.tool_cache }}/flutter
     
     # Get flutter dependencies.
     - run: flutter pub get
