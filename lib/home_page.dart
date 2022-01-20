@@ -14,9 +14,17 @@ class HomePage extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Container(height: 40, width: 40, color: Colors.red.withOpacity(0), child: Image.asset('assets/images/welcome.png')),
+          Container(
+              height: 40,
+              width: 40,
+              color: Colors.red.withOpacity(0),
+              child: Image.asset('assets/images/welcome.png')),
           const SizedBox(height: 10),
-          Container(height: 90, width: 90, color: Colors.red.withOpacity(0), child: Image.asset('assets/images/Stylophile.png')),
+          Container(
+              height: 90,
+              width: 90,
+              color: Colors.red.withOpacity(0),
+              child: Image.asset('assets/images/Stylophile.png')),
           const SizedBox(height: 20),
           Container(
             padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -171,7 +179,11 @@ class HomePage extends StatelessWidget {
                 }),
           ]),
           const SizedBox(height: 50),
-          Container(height: 90, width: 90, color: Colors.red.withOpacity(0), child: Image.asset('assets/images/Celestial.png')),
+          Container(
+              height: 90,
+              width: 90,
+              color: Colors.red.withOpacity(0),
+              child: Image.asset('assets/images/Celestial.png')),
           const SizedBox(
             height: 20,
           ),

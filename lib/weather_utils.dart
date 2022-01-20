@@ -25,8 +25,8 @@ Future<WeatherData> getWeatherData() async {
   double longitude = await locationHelper.getLongitude();
   double latitude = await locationHelper.getLatitude();
 
-  Response response =
-      await get(Uri.parse('http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${_apiKey}&units=metric'));
+  Response response = await get(Uri.parse(
+      'http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${_apiKey}&units=metric'));
 
   if (response.statusCode == 200) {
     try {
@@ -42,11 +42,13 @@ Future<WeatherData> getWeatherData() async {
       _fillInWeatherIcons(result);
       return result;
     } catch (e) {
-      stderr.writeln('WARNING: Stylophile could not read response from openweathermap.org');
+      stderr.writeln(
+          'WARNING: Stylophile could not read response from openweathermap.org');
       throw Exception();
     }
   } else {
-    stderr.writeln('WARNING: Stylophile could not contact openweathermap.org. Response code ${response.statusCode}.');
+    stderr.writeln(
+        'WARNING: Stylophile could not contact openweathermap.org. Response code ${response.statusCode}.');
     throw Exception();
   }
 }
