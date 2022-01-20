@@ -25,8 +25,8 @@ Future<WeatherData> getWeatherData() async {
   double longitude = await locationHelper.getLongitude();
   double latitude = await locationHelper.getLatitude();
 
-  Response response =
-      await get(Uri.parse('http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${_apiKey}&units=metric'));
+  Response response = await get(Uri.parse(
+      'http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${_apiKey}&units=metric'));
 
   if (response.statusCode == 200) {
     try {
@@ -42,16 +42,19 @@ Future<WeatherData> getWeatherData() async {
       _fillInWeatherIcons(result);
       return result;
     } catch (e) {
-      stderr.writeln('WARNING: Stylophile could not read response from openweathermap.org');
+      stderr.writeln(
+          'WARNING: Stylophile could not read response from openweathermap.org');
       throw Exception();
     }
   } else {
-    stderr.writeln('WARNING: Stylophile could not contact openweathermap.org. Response code ${response.statusCode}.');
+    stderr.writeln(
+        'WARNING: Stylophile could not contact openweathermap.org. Response code ${response.statusCode}.');
     throw Exception();
   }
 }
 
 void _fillInWeatherIcons(WeatherData weatherData) {
+  weatherData.currentCondition = 761;
   if (weatherData.currentCondition < 300) {
     weatherData.weatherIcon = kStormIcon;
     weatherData.weatherImage = const AssetImage('assets/images/storm.jpg');
@@ -64,6 +67,25 @@ void _fillInWeatherIcons(WeatherData weatherData) {
   } else if (weatherData.currentCondition < 700) {
     weatherData.weatherIcon = kSnowIcon;
     weatherData.weatherImage = const AssetImage('assets/images/snow.jpg');
+  } else if (weatherData.currentCondition == 701) {
+    weatherData.weatherIcon = kMistIcon;
+    weatherData.weatherImage = const AssetImage('assets/images/mist.jpg');
+  } else if (weatherData.currentCondition >= 711 &&
+      weatherData.currentCondition <= 731) {
+    weatherData.weatherIcon = kSmokeIcon;
+    weatherData.weatherImage = const AssetImage('assets/images/smoke.png');
+  } else if (weatherData.currentCondition == 741) {
+    weatherData.weatherIcon = kMistIcon;
+    weatherData.weatherImage = const AssetImage('assets/images/mist.jpg');
+  } else if (weatherData.currentCondition == 761) {
+    weatherData.weatherIcon = kSmokeIcon;
+    weatherData.weatherImage = const AssetImage('assets/images/smoke.png');
+  } else if (weatherData.currentCondition == 762) {
+    weatherData.weatherIcon = kSmokeIcon;
+    weatherData.weatherImage = const AssetImage('assets/images/smoke.png');
+  } else if (weatherData.currentCondition == 751) {
+    weatherData.weatherIcon = kSandIcon;
+    weatherData.weatherImage = const AssetImage('assets/images/sand.png');
   } else if (weatherData.currentCondition < 800) {
     weatherData.weatherIcon = kLavastormIcon;
     weatherData.weatherImage = const AssetImage('assets/images/lavastorm.jpg');

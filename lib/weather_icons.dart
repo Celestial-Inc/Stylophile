@@ -1,5 +1,6 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_icons/weather_icons.dart';
 
 Icon kCloudIcon = const Icon(
   FontAwesomeIcons.cloud,
@@ -39,6 +40,24 @@ Icon kSnowIcon = const Icon(
 
 Icon kStormIcon = const Icon(
   FontAwesomeIcons.bolt,
+  size: 75.0,
+  color: Colors.white,
+);
+
+Icon kMistIcon = const Icon(
+  FontAwesomeIcons.smog,
+  size: 75.0,
+  color: Colors.white,
+);
+
+Icon kSmokeIcon = const Icon(
+  FontAwesomeIcons.cloudMeatball,
+  size: 75.0,
+  color: Colors.white,
+);
+
+Icon kSandIcon = const Icon(
+  WeatherIcons.sandstorm,
   size: 75.0,
   color: Colors.white,
 );
