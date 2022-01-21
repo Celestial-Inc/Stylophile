@@ -54,7 +54,6 @@ Future<WeatherData> getWeatherData() async {
 }
 
 void _fillInWeatherIcons(WeatherData weatherData) {
-  weatherData.currentCondition = 761;
   if (weatherData.currentCondition < 300) {
     weatherData.weatherIcon = kStormIcon;
     weatherData.weatherImage = const AssetImage('assets/images/storm.jpg');
@@ -70,19 +69,16 @@ void _fillInWeatherIcons(WeatherData weatherData) {
   } else if (weatherData.currentCondition == 701) {
     weatherData.weatherIcon = kMistIcon;
     weatherData.weatherImage = const AssetImage('assets/images/mist.jpg');
-  } else if (weatherData.currentCondition >= 711 &&
-      weatherData.currentCondition <= 731) {
+  } else if (weatherData.currentCondition == 711 ||
+      weatherData.currentCondition == 721 ||
+      weatherData.currentCondition == 731 ||
+      weatherData.currentCondition == 761 ||
+      weatherData.currentCondition == 762) {
     weatherData.weatherIcon = kSmokeIcon;
     weatherData.weatherImage = const AssetImage('assets/images/smoke.png');
   } else if (weatherData.currentCondition == 741) {
     weatherData.weatherIcon = kMistIcon;
     weatherData.weatherImage = const AssetImage('assets/images/mist.jpg');
-  } else if (weatherData.currentCondition == 761) {
-    weatherData.weatherIcon = kSmokeIcon;
-    weatherData.weatherImage = const AssetImage('assets/images/smoke.png');
-  } else if (weatherData.currentCondition == 762) {
-    weatherData.weatherIcon = kSmokeIcon;
-    weatherData.weatherImage = const AssetImage('assets/images/smoke.png');
   } else if (weatherData.currentCondition == 751) {
     weatherData.weatherIcon = kSandIcon;
     weatherData.weatherImage = const AssetImage('assets/images/sand.png');
