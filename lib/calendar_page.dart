@@ -112,7 +112,7 @@ class _CalendarPageState extends State<CalendarPage> {
 
   Widget tryToMakeImage(String? base64ImageString) {
     if (base64ImageString == null) {
-      return Text('Missing', style: TextStyle(fontSize: 40));
+      return const Text('Missing', style: TextStyle(fontSize: 40));
     }
     return Image.memory(base64Decode(base64ImageString), fit: BoxFit.cover);
   }
@@ -123,6 +123,10 @@ class _CalendarPageState extends State<CalendarPage> {
         child: Scaffold(
       body: Column(children: [
         TableCalendar(
+          headerStyle: const HeaderStyle(
+            titleCentered: true,
+            formatButtonVisible: false
+          ),
           firstDay: kFirstDay,
           lastDay: kLastDay,
           focusedDay: _focusedDay,
