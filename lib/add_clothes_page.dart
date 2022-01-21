@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:math';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:crop/crop.dart';
 import 'package:flutter/material.dart';
@@ -63,12 +62,12 @@ class _AddClothesPageState extends State<AddClothesPage> {
   @override
   Widget build(BuildContext context) {
     if (uncroppedImage == null) {
-      return new Scaffold(
+      return Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: kLinearGradient,
           ),
-          child: Center(
+          child: const Center(
             child: SpinKitRipple(
               color: Colors.white,
               size: 150.0,

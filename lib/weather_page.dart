@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:Stylophile/weather_utils.dart';
 
 class WeatherPage extends StatefulWidget {
-  // ignore: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
-  WeatherPage({required this.weatherData});
+  const WeatherPage({required this.weatherData});
 
   final WeatherData weatherData;
 

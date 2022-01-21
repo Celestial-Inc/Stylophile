@@ -3,8 +3,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:Stylophile/weather_page.dart';
 import 'package:Stylophile/weather_utils.dart';
 
-// ignore: use_key_in_widget_constructors
 class WeatherLoaderPage extends StatefulWidget {
+  const WeatherLoaderPage({Key? key}) : super(key: key);
+
   @override
   _WeatherLoaderPageState createState() => _WeatherLoaderPageState();
 }
