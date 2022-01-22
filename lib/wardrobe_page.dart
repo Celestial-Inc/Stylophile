@@ -19,7 +19,7 @@ class _WardrobePageState extends State<WardrobePage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Colors.purple[100],
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -136,7 +136,7 @@ class _WardrobePageState extends State<WardrobePage> {
 
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Colors.purple[100],
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
         child: CarouselSlider.builder(
           options: CarouselOptions(

@@ -7,6 +7,7 @@ import 'package:Stylophile/add_clothes_page.dart';
 import 'package:Stylophile/calendar_page.dart';
 import 'package:Stylophile/wardrobe_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:Stylophile/themes.dart';
 
 Future<void> main() async {
   initializeHive()
@@ -18,13 +19,31 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    currentTheme.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Stylophile',
       home: PageFrame(),
+      theme: CustomTheme.lightTheme,
+      darkTheme: CustomTheme.darkTheme,
+      themeMode: currentTheme.currentTheme,
     );
   }
 }
@@ -51,7 +70,7 @@ class _PageFrameState extends State<PageFrame> {
         body: _screens[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Color(0xFFDC67F7),
+          backgroundColor: Theme.of(context).primaryColor,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white.withOpacity(.60),
           currentIndex: _currentIndex,
