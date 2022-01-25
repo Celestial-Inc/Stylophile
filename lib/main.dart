@@ -41,8 +41,8 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Stylophile',
       home: PageFrame(),
-      theme: CustomTheme.lightTheme,
-      darkTheme: CustomTheme.darkTheme,
+      theme: CustomTheme.pinkTheme,
+      darkTheme: CustomTheme.purpleTheme,
       themeMode: currentTheme.currentTheme,
     );
   }

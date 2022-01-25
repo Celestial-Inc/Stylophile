@@ -113,7 +113,7 @@ class _AddClothesPageState extends State<AddClothesPage> {
       return SafeArea(
           child: Scaffold(
         appBar: AppBar(
-          backgroundColor: ui.Color.fromARGB(255, 230, 100, 210),
+          backgroundColor: Theme.of(context).primaryColor,
           title: const Text('Image Cropping'),
           centerTitle: true,
           actions: <Widget>[

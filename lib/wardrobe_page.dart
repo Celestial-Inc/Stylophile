@@ -1,3 +1,4 @@
+import 'package:Stylophile/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hive/hive.dart';
@@ -17,49 +18,54 @@ class _WardrobePageState extends State<WardrobePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-              color: Colors.red.withOpacity(0),
-              child: buildCarousel(context, 'shirts'),
-              height: 150),
-          Container(
-              color: Colors.red.withOpacity(0),
-              child: buildCarousel(context, 'bottoms'),
-              height: 150),
-          Container(
-              color: Colors.red.withOpacity(0),
-              child: buildCarousel(context, 'shoes'),
-              height: 150),
-          TextButton(
-              onPressed: () {
-                DatePicker.showDatePicker(context,
-                    showTitleActions: true,
-                    minTime: kFirstDay,
-                    maxTime: kLastDay, onConfirm: (date) {
-                  Box calendarBox = Hive.box('calendar');
-                  if (calendarBox.containsKey(createCalendarKey(date)) ==
-                      false) {
-                    calendarBox.put(createCalendarKey(date), [currentOutfit]);
-                  } else {
-                    List listOfOutfits =
-                        calendarBox.get(createCalendarKey(date));
-                    listOfOutfits.add(currentOutfit);
-                    calendarBox.put(createCalendarKey(date), listOfOutfits);
-                  }
-                }, currentTime: DateTime.now());
-              },
-              child: Text(
-                'Share to Calendar',
-                style: TextStyle(color: Colors.purple),
-              ))
-        ],
-      ),
-    ));
+    print(Theme.of(context).backgroundColor);
+    return MaterialApp(
+        theme: CustomTheme.pinkTheme,
+        themeMode: currentTheme.currentTheme,
+        home: SafeArea(
+            child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                  color: Colors.red.withOpacity(0),
+                  child: buildCarousel(context, 'shirts'),
+                  height: 150),
+              Container(
+                  color: Colors.red.withOpacity(0),
+                  child: buildCarousel(context, 'bottoms'),
+                  height: 150),
+              Container(
+                  color: Colors.red.withOpacity(0),
+                  child: buildCarousel(context, 'shoes'),
+                  height: 150),
+              TextButton(
+                  onPressed: () {
+                    DatePicker.showDatePicker(context,
+                        showTitleActions: true,
+                        minTime: kFirstDay,
+                        maxTime: kLastDay, onConfirm: (date) {
+                      Box calendarBox = Hive.box('calendar');
+                      if (calendarBox.containsKey(createCalendarKey(date)) ==
+                          false) {
+                        calendarBox
+                            .put(createCalendarKey(date), [currentOutfit]);
+                      } else {
+                        List listOfOutfits =
+                            calendarBox.get(createCalendarKey(date));
+                        listOfOutfits.add(currentOutfit);
+                        calendarBox.put(createCalendarKey(date), listOfOutfits);
+                      }
+                    }, currentTime: DateTime.now());
+                  },
+                  child: Text(
+                    'Share to Calendar',
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  ))
+            ],
+          ),
+        )));
   }
 
   void initState() {
