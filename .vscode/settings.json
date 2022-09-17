@@ -1,3 +1,4 @@
 {
-    "html.format.wrapLineLength": 100
+    "html.format.wrapLineLength": 100,
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
