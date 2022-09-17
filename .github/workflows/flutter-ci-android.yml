@@ -13,15 +13,18 @@ jobs:
     steps:
     
     # Setup Java environment in order to build the Android app.
-    - uses: actions/checkout@v1
-    - uses: actions/setup-java@v1
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v2
       with:
-        java-version: '12.x'
+        distribution: 'zulu'
+        java-version: '11'
     
     - name: Flutter action
     # Setup the flutter environment.
-      uses: subosito/flutter-action@v2.2.0
-      #with:
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.0.5'
+        channel: 'stable'
         # The Flutter version to make available on the path
         # flutter-version:  # optional
         # The Flutter build release channel
@@ -33,23 +36,25 @@ jobs:
         # Flutter SDK cache path
         # cache-path: # optional, default is ${{ runner.tool_cache }}/flutter
     
+    - run: flutter --version
+
     # Get flutter dependencies.
     - run: flutter pub get
     
     # Check for any formatting issues in the code.
-    #- run: flutter format -n --set-exit-if-changed .
+    - run: flutter format -n --set-exit-if-changed .
     
     # Statically analyze the Dart code for any errors.
     - run: flutter analyze . --no-fatal-infos
     
     # Run widget tests for our flutter project.
-    #- run: flutter test
+    - run: flutter test
     
     # Build apk.
     - run: flutter build apk
     
     # Upload generated apk to the artifacts.
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v2
       with:
         name: release-apk
         path: build/app/outputs/apk/release/app-release.apk

@@ -126,9 +126,7 @@ class _CalendarPageState extends State<CalendarPage> {
       body: Column(children: [
         TableCalendar(
           headerStyle: const HeaderStyle(
-            titleCentered: true,
-            formatButtonVisible: false
-          ),
+              titleCentered: true, formatButtonVisible: false),
           firstDay: kFirstDay,
           lastDay: kLastDay,
           focusedDay: _focusedDay,
