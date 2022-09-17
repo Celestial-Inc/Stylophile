@@ -2,7 +2,8 @@ name: Flutter CI
 
 # This workflow is triggered on pushes to the repository.
 
-on: [push, pull_request]
+on:
+  push:
     
 # on: push    # Default will running for every branch.
     
@@ -37,7 +38,7 @@ jobs:
     - run: flutter pub get
     
     # Check for any formatting issues in the code.
-    - run: flutter format -n --set-exit-if-changed -- --line-length 240 .
+    - run: flutter format --set-exit-if-changed .
     
     # Statically analyze the Dart code for any errors.
     - run: flutter analyze . --no-fatal-infos

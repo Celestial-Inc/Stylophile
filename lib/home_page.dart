@@ -72,7 +72,12 @@ class HomePage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: const Text(
-              'In the wardrobe page, you are able to see all your uploaded images through swiping, in addition to that, you can also share your created outfits to any day on the built in calendar page also accessible on your bottom navigation bar',
+              'In the wardrobe page, you are able to '
+              'see all your uploaded images through '
+              'swiping, in addition to that, you can also '
+              'share your created outfits to any day on '
+              'the built in calendar page also '
+              'accessible on your bottom navigation bar',
               style: TextStyle(fontSize: 20, color: Colors.white),
               textAlign: TextAlign.center,
             ),
@@ -112,7 +117,11 @@ class HomePage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: const Text(
-              'Now of course, while planning your outfits, keeping the weather in mind is an important aspect of the planning, so we built in a weather page, also accessible through your bottom navigation bar',
+              'Now of course, while planning your '
+              'outfits, keeping the weather in mind is '
+              'an important aspect of the planning, so '
+              'we built in a weather page, also '
+              'accessible through your bottom navigation bar',
               style: TextStyle(fontSize: 20, color: Colors.white),
               textAlign: TextAlign.center,
             ),
@@ -139,7 +148,12 @@ class HomePage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: const Text(
-              'What? You don\'t like any of your clothes? And can\'t use our app? We can help you with that! The three icons below take you to different stores, make sure to come back once you own more clothing items!',
+              'What? You don\'t like any of your clothes? '
+              'And can\'t use our app? We can help you '
+              'with that! The three icons below take '
+              'you to different stores, make sure to '
+              'come back once you own more clothing '
+              'items!',
               style: TextStyle(fontSize: 20, color: Colors.white),
               textAlign: TextAlign.center,
             ),
